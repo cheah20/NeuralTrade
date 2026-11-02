@@ -1,0 +1,86 @@
+/* Colours, fonts and sizes used by every page.
+   Broker-style light theme: white panels on a pale grey page,
+   green for up / buy, red for down / sell, blue for actions. */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* page and panels */
+  --bg-main: #f2f4f7;
+  --bg-glass: #ffffff;
+  --bg-raised: #f6f7f9;
+  --bg-row: #eef0f3;
+
+  /* blue for buttons, links and the active page.
+     The gold-* names are old but still used all over the templates. */
+  --gold-soft: #1557d0;
+  --gold-bright: #0f47b0;
+  --orange-glow: #e5443b;
+
+  --navy: #141a22;
+  --white-soft: #141a22;
+  --panel-border: #e4e7ec;
+  --panel-border-top: #e4e7ec;
+  --grid-line: #eef0f3;
+  --shadow-glass: 0 1px 2px rgba(16, 24, 40, 0.04);
+
+  /* text */
+  --text-main:   #141a22;
+  --text-muted:  #5d6876;
+  --text-subtle: #7d8794;
+  --text-faint:  #a5adb8;
+
+  /* up / down */
+  --semantic-buy: #12a46b;
+  --semantic-sell: #e5443b;
+  --semantic-warning: #d98a00;
+  --semantic-neutral: #5d6876;
+
+  /* older names kept for the templates */
+  --primary: #1557d0;
+  --on-primary: #ffffff;
+  --primary-container: #1557d0;
+  --secondary: #7a5af0;
+  --on-secondary: #ffffff;
+  --strong-sell: var(--semantic-sell);
+  --optimal-processing: var(--semantic-warning);
+  --synced-green: var(--semantic-buy);
+  --on-surface: #141a22;
+
+  /* glass is only used for the side menu and the price card on the chart */
+  --glass-fill: rgba(255, 255, 255, 0.62);
+  --glass-edge: rgba(255, 255, 255, 0.9);
+  --glass-blur: blur(16px) saturate(1.4);
+  --blur-soft: none;
+  --blur-medium: none;
+  --blur-premium: none;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+
+  /* numbers use Roboto with fixed-width digits; real monospace only for logs and rule ids */
+  --font-mono: "Roboto", sans-serif;
+  --font-code: "Roboto Mono", monospace;
+  --font-sans: "Roboto", sans-serif;
+  --font-display: "Roboto", sans-serif;
+
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-md: 14px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-xxl: 26px;
+
+  --unit: 4px;
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --gap-lg: 16px;
+  --gap-xl: 24px;
+
+  --z-sidebar: 100;
+  --z-topbar: 90;
+  --z-overlay: 200;
+  --z-modal: 300;
+}

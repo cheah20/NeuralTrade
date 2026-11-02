@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings · NeuralTrade</title>
+    <link rel="shortcut icon" href="data:,">
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+    
+  <style>.demo-strip{position:sticky;top:0;z-index:9999;padding:6px 12px;text-align:center;font:600 13px/1.4 system-ui,sans-serif;background:#fff4d6;color:#5c4400;border-bottom:1px solid #ecd9a0}.demo-strip a{color:#5c4400;text-decoration:underline}</style><script src="demo-data.js"></script><script src="demo-shim.js"></script></head>
+  <body><div class="demo-strip">Online demo with recorded data. AI reasoning and live news run in demo mode here (they need API keys). <a href="../">About this demo</a></div>
+    <div class="app-shell">
+      <!-- dark backdrop behind the menu on phones -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- side menu: hidden at the left edge, slides out on hover -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">NeuralTrade</div>
+          <div class="sidebar-subtitle">Fuzzy logic trading desk</div>
+        </div>
+
+        <nav class="nav-items">
+          <a
+            href="index.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Dashboard
+            <kbd>1</kbd>
+          </a>
+          <a
+            href="market-intelligence.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v9l5 3" />
+            </svg>
+            Market Intelligence
+            <kbd>2</kbd>
+          </a>
+          <a
+            href="decision-logic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M17.66 6.34l-1.41 1.41M6.34 17.66l-1.41 1.41"
+              />
+            </svg>
+            Decision Logic
+            <kbd>3</kbd>
+          </a>
+          <a
+            href="backtesting.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Backtesting
+            <kbd>4</kbd>
+          </a>
+          <a
+            href="agentic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+              <circle cx="12" cy="12" r="7" stroke-dasharray="2 2"/>
+            </svg>
+            Agentic Layer
+            <kbd>5</kbd>
+          </a>
+          <a
+            href="walkthrough.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 12l9 5 9-5"/>
+              <path d="M3 17l9 5 9-5"/>
+            </svg>
+            Tutorial
+            <kbd>6</kbd>
+          </a>
+          <a
+            href="settings.html"
+            class="nav-item active"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.14 12.94a7 7 0 0 0 .07-.94 7 7 0 0 0-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.41l-.36 2.54a7 7 0 0 0-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.63 8.47a.49.49 0 0 0 .12.64l2.03 1.58a7 7 0 0 0-.07.94c0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.49.41h4c.25 0 .45-.17.49-.41l.36-2.54a7 7 0 0 0 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.64z"
+              />
+            </svg>
+            Settings
+            <kbd>7</kbd>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="sidebar-hint">Press 1–7 to switch pages.</p>
+          <button class="btn-execute" id="btn-execute-trade">
+            <svg
+              style="width: 15px; height: 15px; fill: currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Execute Trade
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation" title="Menu">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="topbar-logo">NeuralTrade<small>Settings</small></div>
+            
+            <div class="topbar-status">
+              <span class="status-dot"></span>
+              Market data live
+            </div>
+            
+          </div>
+
+          
+<div class="topbar-right">
+  <span class="topbar-clock" id="topbar-clock">--:--:--</span>
+</div>
+
+        </header>
+
+        <div class="page-scroll">
+          <div class="page-layout">
+<div class="settings-grid">
+  <!-- LEFT NAV -->
+  <div class="glass-panel settings-left-nav">
+    <div
+      style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px"
+    >
+      <span
+        style="
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--semantic-buy);
+          display: inline-block;
+          animation: pulse 2s infinite;
+        "
+      ></span>
+      <div
+        style="
+          font: 600 13px &quot;Roboto&quot;;
+          color: var(--on-surface);
+        "
+      >
+        Core agent
+      </div>
+    </div>
+    <div
+      class="label-mono"
+      style="
+        color: rgba(20, 26, 34, 0.45);
+        font-size: 9px;
+        padding-left: 16px;
+        margin-bottom: 18px;
+      "
+    >
+      Active Sync
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 2px">
+      
+      <a href="index.html" class="settings-nav-item">
+        Dashboard
+      </a>
+      
+      <a href="market-intelligence.html" class="settings-nav-item">
+        Market Intelligence
+      </a>
+      
+      <a href="decision-logic.html" class="settings-nav-item">
+        Decision Logic
+      </a>
+      
+      <a href="backtesting.html" class="settings-nav-item">
+        Backtesting
+      </a>
+      
+      <a href="settings.html" class="settings-nav-item settings-nav-item--active">
+        Settings
+      </a>
+      
+    </div>
+  </div>
+
+  <!-- RIGHT SETTINGS -->
+  <div class="flex-col flex-col-gap-md overflow-y-auto">
+    <div>
+      <div
+        style="
+          font: 500 15px &quot;Roboto&quot;;
+          color: var(--on-surface);
+          margin-bottom: 3px;
+        "
+      >
+        System Configuration
+      </div>
+      <div
+        class="label-mono"
+        style="
+          color: rgba(20, 26, 34, 0.45);
+          font-size: 10px;
+          text-transform: uppercase;
+        "
+      >
+        v5.0.0-EXPERT
+      </div>
+    </div>
+
+    <!-- Demo Disclaimer -->
+    <div class="muted-box" style="margin-bottom:0;">
+      <div class="label-mono" style="text-transform:none;font-size:10px;color:rgba(20, 26, 34, 0.45);line-height:1.6;">
+        This page is a mock-up. Toggles, sliders and key fields only change what you see and nothing is saved. The settings that matter live in the fuzzy engine, the expert layer and the backtester.
+      </div>
+    </div>
+
+    <!-- Agent Orchestration + Fuzzy Calibration -->
+    <div class="split-1-280">
+      <div class="glass-panel">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+          "
+        >
+          
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              text-transform: uppercase;
+              font-size: 10px;
+              letter-spacing: 0.1em;
+            "
+          >
+            Agent orchestration
+          </div>
+        </div>
+        <div class="settings-agent-grid">
+          
+          <div
+            style="
+              background: rgba(20, 26, 34, 0.03);
+              border: 1px solid rgba(20, 26, 34, 0.07);
+              border-radius: var(--radius-lg);
+              padding: 14px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+              "
+            >
+              <div
+                style="
+                  font: 500 12px &quot;Roboto&quot;;
+                  color: var(--on-surface);
+                "
+              >
+                Daily Data Agent
+              </div>
+              <!-- Toggle -->
+              <div
+                style="width:38px;height:20px;border-radius:10px;background:var(--primary);position:relative;cursor:pointer;transition:background .3s;"
+              >
+                <div
+                  style="width:14px;height:14px;border-radius:50%;background:var(--on-primary);position:absolute;top:3px;left:21px;transition:left .3s;"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                margin-bottom: 10px;
+              "
+            >
+              ETL &amp; Normalization
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+              "
+            >
+              Logic weight
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+              "
+            >
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="85"
+                style="flex: 1"
+              />
+              <span
+                class="label-mono"
+                style="
+                  color: var(--primary);
+                  font-size: 10px;
+                  min-width: 28px;
+                  text-align: right;
+                "
+                >85%</span
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px">
+              <span
+                style="width:6px;height:6px;border-radius:50%;display:inline-block;background:var(--semantic-buy);"
+              ></span>
+              <div
+                class="label-mono"
+                style="font-size:var(--text-xs);color:var(--semantic-buy);"
+              >
+                SYNCED
+              </div>
+            </div>
+          </div>
+          
+          <div
+            style="
+              background: rgba(20, 26, 34, 0.03);
+              border: 1px solid rgba(20, 26, 34, 0.07);
+              border-radius: var(--radius-lg);
+              padding: 14px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+              "
+            >
+              <div
+                style="
+                  font: 500 12px &quot;Roboto&quot;;
+                  color: var(--on-surface);
+                "
+              >
+                Perception Agent
+              </div>
+              <!-- Toggle -->
+              <div
+                style="width:38px;height:20px;border-radius:10px;background:var(--primary);position:relative;cursor:pointer;transition:background .3s;"
+              >
+                <div
+                  style="width:14px;height:14px;border-radius:50%;background:var(--on-primary);position:absolute;top:3px;left:21px;transition:left .3s;"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                margin-bottom: 10px;
+              "
+            >
+              Sentiment &amp; Trend Extraction
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+              "
+            >
+              Logic weight
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+              "
+            >
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="62"
+                style="flex: 1"
+              />
+              <span
+                class="label-mono"
+                style="
+                  color: var(--primary);
+                  font-size: 10px;
+                  min-width: 28px;
+                  text-align: right;
+                "
+                >62%</span
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px">
+              <span
+                style="width:6px;height:6px;border-radius:50%;display:inline-block;background:var(--secondary);"
+              ></span>
+              <div
+                class="label-mono"
+                style="font-size:var(--text-xs);color:var(--secondary);"
+              >
+                SCANNING
+              </div>
+            </div>
+          </div>
+          
+          <div
+            style="
+              background: rgba(20, 26, 34, 0.03);
+              border: 1px solid rgba(20, 26, 34, 0.07);
+              border-radius: var(--radius-lg);
+              padding: 14px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+              "
+            >
+              <div
+                style="
+                  font: 500 12px &quot;Roboto&quot;;
+                  color: var(--on-surface);
+                "
+              >
+                Cognition Agent
+              </div>
+              <!-- Toggle -->
+              <div
+                style="width:38px;height:20px;border-radius:10px;background:var(--primary);position:relative;cursor:pointer;transition:background .3s;"
+              >
+                <div
+                  style="width:14px;height:14px;border-radius:50%;background:var(--on-primary);position:absolute;top:3px;left:21px;transition:left .3s;"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                margin-bottom: 10px;
+              "
+            >
+              Symbolic Reasoning + Expert Rules
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+              "
+            >
+              Logic weight
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+              "
+            >
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="95"
+                style="flex: 1"
+              />
+              <span
+                class="label-mono"
+                style="
+                  color: var(--primary);
+                  font-size: 10px;
+                  min-width: 28px;
+                  text-align: right;
+                "
+                >95%</span
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px">
+              <span
+                style="width:6px;height:6px;border-radius:50%;display:inline-block;background:var(--semantic-warning);animation:pulse 1.5s infinite;"
+              ></span>
+              <div
+                class="label-mono"
+                style="font-size:var(--text-xs);color:var(--semantic-warning);"
+              >
+                INFERENCING...
+              </div>
+            </div>
+          </div>
+          
+          <div
+            style="
+              background: rgba(20, 26, 34, 0.03);
+              border: 1px solid rgba(20, 26, 34, 0.07);
+              border-radius: var(--radius-lg);
+              padding: 14px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+              "
+            >
+              <div
+                style="
+                  font: 500 12px &quot;Roboto&quot;;
+                  color: var(--on-surface);
+                "
+              >
+                Execution Agent
+              </div>
+              <!-- Toggle -->
+              <div
+                style="width:38px;height:20px;border-radius:10px;background:rgba(20, 26, 34, 0.12);position:relative;cursor:pointer;transition:background .3s;"
+              >
+                <div
+                  style="width:14px;height:14px;border-radius:50%;background:rgba(20, 26, 34, 0.5);position:absolute;top:3px;left:3px;transition:left .3s;"
+                ></div>
+              </div>
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                margin-bottom: 10px;
+              "
+            >
+              Automated Order Routing
+            </div>
+            <div
+              class="label-mono"
+              style="
+                color: rgba(20, 26, 34, 0.45);
+                font-size: 9px;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+              "
+            >
+              Logic weight
+            </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+              "
+            >
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="40"
+                style="flex: 1"
+              />
+              <span
+                class="label-mono"
+                style="
+                  color: var(--primary);
+                  font-size: 10px;
+                  min-width: 28px;
+                  text-align: right;
+                "
+                >40%</span
+              >
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px">
+              <span
+                style="width:6px;height:6px;border-radius:50%;display:inline-block;background:rgba(20, 26, 34, 0.45);"
+              ></span>
+              <div
+                class="label-mono"
+                style="font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);"
+              >
+                STANDBY
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="glass-panel">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+          "
+        >
+          <span style="color: rgba(20, 26, 34, 0.45); font-size: 13px"
+            >≡</span
+          >
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              text-transform: uppercase;
+              font-size: 10px;
+              letter-spacing: 0.1em;
+            "
+          >
+            Fuzzy calibration
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 16px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 6px;
+            "
+          >
+            <div
+              class="label-mono"
+              style="color: rgba(20, 26, 34, 0.7); font-size: 11px"
+            >
+              Global Sensitivity
+            </div>
+            <div
+              class="label-mono"
+              style="color: var(--primary); font-size: 11px"
+            >
+              0.74
+            </div>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="74"
+            style="width: 100%"
+          />
+        </div>
+        
+        <div style="margin-bottom: 16px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 6px;
+            "
+          >
+            <div
+              class="label-mono"
+              style="color: rgba(20, 26, 34, 0.7); font-size: 11px"
+            >
+              Uncertainty
+        Threshold
+            </div>
+            <div
+              class="label-mono"
+              style="color: var(--primary); font-size: 11px"
+            >
+              0.12
+            </div>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="12"
+            style="width: 100%"
+          />
+        </div>
+        
+        <div style="margin-bottom: 16px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 6px;
+            "
+          >
+            <div
+              class="label-mono"
+              style="color: rgba(20, 26, 34, 0.7); font-size: 11px"
+            >
+              Signal Confidence Min
+            </div>
+            <div
+              class="label-mono"
+              style="color: var(--primary); font-size: 11px"
+            >
+              0.88
+            </div>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="88"
+            style="width: 100%"
+          />
+        </div>
+        
+        <div
+          style="
+            margin-top: 8px;
+            padding: 12px;
+            background: rgba(16, 24, 40, 0.07);
+            border-left: 2px solid rgba(20, 26, 34, 0.18);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+          "
+        >
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              font-size: 10px;
+              font-style: italic;
+              line-height: 1.7;
+            "
+          >
+            The expert layer can shift the "high volatility" set when the agents agree the market is unstable.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- API + Risk + Appearance -->
+    <div class="triple-bottom">
+      <!-- API Connectivity -->
+      <div class="glass-panel">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+          "
+        >
+          
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              text-transform: uppercase;
+              font-size: 10px;
+            "
+          >
+            API & connectivity
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 12px">
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              font-size: 9px;
+              text-transform: uppercase;
+              margin-bottom: 5px;
+            "
+          >
+            Yahoo Finance prices
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center">
+            <input
+              type="password"
+              class="glass-input"
+              value="**************"
+              style="flex: 1; font-size: 12px; padding: 9px 12px"
+            />
+            <button
+              class="btn-secondary api-eye-btn"
+              style="padding: 9px; font-size: 11px"
+              title="Show/hide API key"
+            >Show</button>
+            <button
+              style="padding:8px 12px;background:rgba(18, 164, 107, 0.1);border:1px solid rgba(18, 164, 107, 0.2);border-radius:var(--radius-md);color:var(--semantic-buy);font-family:var(--font-mono);font-size:var(--text-xs);cursor:pointer;white-space:nowrap;text-transform:uppercase;"
+            >
+              Connected
+            </button>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 12px">
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              font-size: 9px;
+              text-transform: uppercase;
+              margin-bottom: 5px;
+            "
+          >
+            Marketaux news key
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center">
+            <input
+              type="password"
+              class="glass-input"
+              value="**************"
+              style="flex: 1; font-size: 12px; padding: 9px 12px"
+            />
+            <button
+              class="btn-secondary api-eye-btn"
+              style="padding: 9px; font-size: 11px"
+              title="Show/hide API key"
+            >Show</button>
+            <button
+              style="padding:8px 12px;background:rgba(229, 68, 59, 0.1);border:1px solid rgba(229, 68, 59, 0.2);border-radius:var(--radius-md);color:var(--semantic-sell);font-family:var(--font-mono);font-size:var(--text-xs);cursor:pointer;white-space:nowrap;text-transform:uppercase;"
+            >
+              Not set
+            </button>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 12px">
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              font-size: 9px;
+              text-transform: uppercase;
+              margin-bottom: 5px;
+            "
+          >
+            DeepSeek API key
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center">
+            <input
+              type="password"
+              class="glass-input"
+              value="**************"
+              style="flex: 1; font-size: 12px; padding: 9px 12px"
+            />
+            <button
+              class="btn-secondary api-eye-btn"
+              style="padding: 9px; font-size: 11px"
+              title="Show/hide API key"
+            >Show</button>
+            <button
+              style="padding:8px 12px;background:rgba(229, 68, 59, 0.1);border:1px solid rgba(229, 68, 59, 0.2);border-radius:var(--radius-md);color:var(--semantic-sell);font-family:var(--font-mono);font-size:var(--text-xs);cursor:pointer;white-space:nowrap;text-transform:uppercase;"
+            >
+              Not set
+            </button>
+          </div>
+        </div>
+        
+        <button
+          id="btn-connection-test"
+          class="btn-primary"
+          style="
+            width: 100%;
+            border-radius: var(--radius-lg);
+            margin-top: 8px;
+            letter-spacing: 0.08em;
+            font-size: 11px;
+          "
+        >
+          Test connections
+        </button>
+      </div>
+
+      <!-- Risk & Security -->
+      <div class="glass-panel">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+          "
+        >
+          
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              text-transform: uppercase;
+              font-size: 10px;
+            "
+          >
+            Risk & security
+          </div>
+        </div>
+        <div style="margin-bottom: 14px">
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              font-size: 9px;
+              text-transform: uppercase;
+              margin-bottom: 6px;
+            "
+          >
+            Max drawdown limit
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px">
+            <input
+              type="text"
+              class="glass-input"
+              value="12.5"
+              style="flex: 1; font-size: 13px"
+            />
+            <span
+              class="label-mono"
+              style="color: rgba(20, 26, 34, 0.45); font-size: 11px"
+              >%</span
+            >
+          </div>
+        </div>
+        <div style="margin-bottom: 14px">
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              font-size: 9px;
+              text-transform: uppercase;
+              margin-bottom: 6px;
+            "
+          >
+            Session timeout
+          </div>
+          <select class="glass-input" style="font-size: 13px">
+            <option>30 Minutes</option>
+            <option>60 Minutes</option>
+            <option>2 Hours</option>
+          </select>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div
+            style="
+              font: 500 12px &quot;Roboto&quot;;
+              color: rgba(20, 26, 34, 0.7);
+            "
+          >
+            Multi-Factor Auth
+          </div>
+          <div
+            style="
+              width: 38px;
+              height: 20px;
+              border-radius: 10px;
+              background: var(--primary);
+              position: relative;
+              cursor: pointer;
+            "
+          >
+            <div
+              style="
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--on-primary);
+                position: absolute;
+                top: 3px;
+                left: 21px;
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appearance -->
+      <div class="glass-panel">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+          "
+        >
+          
+          <div
+            class="label-mono"
+            style="
+              color: rgba(20, 26, 34, 0.45);
+              text-transform: uppercase;
+              font-size: 10px;
+            "
+          >
+            Appearance
+          </div>
+        </div>
+        <div class="settings-appearance-grid">
+          <button class="settings-theme-btn settings-theme-btn--active">Glass</button>
+          <button class="settings-theme-btn">Dark</button>
+          <button class="settings-theme-btn">Light</button>
+        </div>
+        <div
+          class="label-mono"
+          style="
+            color: rgba(20, 26, 34, 0.45);
+            font-size: 9px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+          "
+        >
+          Layout density
+        </div>
+        <div class="settings-density-row">
+          <button class="settings-density-btn">Compact</button>
+          <button class="settings-density-btn settings-density-btn--active">Default</button>
+          <button class="settings-density-btn">Relaxed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /right -->
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backtesting · NeuralTrade</title>
+    <link rel="shortcut icon" href="data:,">
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+    
+  <style>.demo-strip{position:sticky;top:0;z-index:9999;padding:6px 12px;text-align:center;font:600 13px/1.4 system-ui,sans-serif;background:#fff4d6;color:#5c4400;border-bottom:1px solid #ecd9a0}.demo-strip a{color:#5c4400;text-decoration:underline}</style><script src="demo-data.js"></script><script src="demo-shim.js"></script></head>
+  <body><div class="demo-strip">Online demo with recorded data. AI reasoning and live news run in demo mode here (they need API keys). <a href="../">About this demo</a></div>
+    <div class="app-shell">
+      <!-- dark backdrop behind the menu on phones -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- side menu: hidden at the left edge, slides out on hover -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">NeuralTrade</div>
+          <div class="sidebar-subtitle">Fuzzy logic trading desk</div>
+        </div>
+
+        <nav class="nav-items">
+          <a
+            href="index.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Dashboard
+            <kbd>1</kbd>
+          </a>
+          <a
+            href="market-intelligence.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v9l5 3" />
+            </svg>
+            Market Intelligence
+            <kbd>2</kbd>
+          </a>
+          <a
+            href="decision-logic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M17.66 6.34l-1.41 1.41M6.34 17.66l-1.41 1.41"
+              />
+            </svg>
+            Decision Logic
+            <kbd>3</kbd>
+          </a>
+          <a
+            href="backtesting.html"
+            class="nav-item active"
+          >
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Backtesting
+            <kbd>4</kbd>
+          </a>
+          <a
+            href="agentic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+              <circle cx="12" cy="12" r="7" stroke-dasharray="2 2"/>
+            </svg>
+            Agentic Layer
+            <kbd>5</kbd>
+          </a>
+          <a
+            href="walkthrough.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 12l9 5 9-5"/>
+              <path d="M3 17l9 5 9-5"/>
+            </svg>
+            Tutorial
+            <kbd>6</kbd>
+          </a>
+          <a
+            href="settings.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.14 12.94a7 7 0 0 0 .07-.94 7 7 0 0 0-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.41l-.36 2.54a7 7 0 0 0-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.63 8.47a.49.49 0 0 0 .12.64l2.03 1.58a7 7 0 0 0-.07.94c0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.49.41h4c.25 0 .45-.17.49-.41l.36-2.54a7 7 0 0 0 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.64z"
+              />
+            </svg>
+            Settings
+            <kbd>7</kbd>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="sidebar-hint">Press 1–7 to switch pages.</p>
+          <button class="btn-execute" id="btn-execute-trade">
+            <svg
+              style="width: 15px; height: 15px; fill: currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Execute Trade
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation" title="Menu">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="topbar-logo">NeuralTrade<small>Backtesting</small></div>
+            
+<div class="bt-breadcrumb">
+  
+  <a href="index.html" class="">Dashboard</a>
+  
+  <a href="backtesting.html" class="bt-breadcrumb--active">Backtesting</a>
+  
+  <a href="market-intelligence.html" class="">Market Intelligence</a>
+  
+</div>
+
+          </div>
+
+          
+          <div class="topbar-right">
+            <span class="topbar-clock" id="topbar-clock">--:--:--</span>
+            <button class="btn-avatar" title="User">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--gold-soft); fill: none; stroke-width: 1.5">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-2.667 3.582-4 8-4s8 1.333 8 4" />
+              </svg>
+            </button>
+          </div>
+          
+        </header>
+
+        <div class="page-scroll">
+          <div class="page-layout">
+<div class="config-main">
+
+  <!-- settings for the run -->
+  <div class="glass-panel flex-col overflow-y-auto">
+    <div class="section-header">
+      <span class="section-header__title">BACKTEST CONFIG</span>
+    </div>
+
+    <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-subtle);margin-bottom:8px;">Ticker</div>
+    <input
+      id="bt-ticker"
+      class="glass-input"
+      type="text"
+      placeholder="AAPL, TSLA, BTC"
+      value="AAPL"
+      style="margin-bottom:6px;text-transform:uppercase;"
+      autocomplete="off"
+    />
+    <div style="display:flex;gap:6px;margin-bottom:20px;">
+      
+      <button class="btn-secondary bt-period-btn "
+              data-period="1y"
+              style="flex:1;">
+        1Y
+      </button>
+      
+      <button class="btn-secondary bt-period-btn bt-period-btn--active"
+              data-period="2y"
+              style="flex:1;background:rgba(20, 26, 34, 0.108);border-color:rgba(20, 26, 34, 0.18);color:var(--gold-soft);">
+        2Y
+      </button>
+      
+      <button class="btn-secondary bt-period-btn "
+              data-period="3y"
+              style="flex:1;">
+        3Y
+      </button>
+      
+    </div>
+
+    <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-subtle);margin-bottom:8px;">Date range</div>
+    <div style="background:rgba(16, 24, 40, 0.077);border:1px solid rgba(20, 26, 34, 0.07);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:20px;">
+      <div class="config-field">
+        <span class="config-field__label">From</span>
+        <span class="config-field__value" id="bt-eval-start">—</span>
+      </div>
+      <div class="config-field">
+        <span class="config-field__label">To</span>
+        <span class="config-field__value" id="bt-eval-end">—</span>
+      </div>
+    </div>
+
+    <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-subtle);margin-bottom:8px;">Quick pick</div>
+    <div class="flex-col flex-col-gap-sm" style="margin-bottom:20px;">
+      
+      <label class="asset-option asset-option--active" data-ticker="AAPL">
+        <span class="asset-option__name">Apple (AAPL)</span>
+        <div class="radio-dot radio-dot--checked">
+          <svg viewBox="0 0 12 12" style="width:8px;height:8px;" fill="none"><path d="M2 6l3 3 5-5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </label>
+      
+      <label class="asset-option" data-ticker="BTC">
+        <span class="asset-option__name">Bitcoin (BTC)</span>
+        <div class="radio-dot">
+          
+        </div>
+      </label>
+      
+      <label class="asset-option" data-ticker="EURUSD=X">
+        <span class="asset-option__name">EUR / USD</span>
+        <div class="radio-dot">
+          
+        </div>
+      </label>
+      
+    </div>
+
+    <div class="mt-auto" style="padding-top:12px;border-top:1px solid rgba(20, 26, 34, 0.05);">
+      <button id="bt-run-btn" class="btn-primary" style="width:100%;border-radius:var(--radius-lg);padding:13px;">
+        <svg id="bt-run-icon" style="width:13px;height:13px;fill:currentColor;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span id="bt-run-label">Execute Backtest</span>
+      </button>
+      <div id="bt-status" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-subtle);text-align:center;margin-top:8px;min-height:14px;"></div>
+    </div>
+  </div>
+
+  <div class="flex-col flex-col-gap-md overflow-y-auto" style="min-height:0;">
+
+    <!-- results of a real run, hidden until the button is pressed -->
+    <div id="bt-live-results" style="display:none;flex-shrink:0;">
+      <!-- Ticker header -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div>
+          <div style="font:600 18px 'Roboto', sans-serif;color:var(--white-soft);" id="bt-result-ticker">—</div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-subtle);" id="bt-result-bars">—</div>
+        </div>
+        <span id="bt-result-winner" class="badge badge--synced" style="font-size:var(--text-xs);">—</span>
+      </div>
+      <!-- Live metric cards -->
+      <div class="stat-row" style="margin-bottom:12px;">
+        <div class="glass-panel-high">
+          <div class="metric-label">Expert return</div>
+          <div class="metric-value metric-value--gold" id="bt-expert-return">—</div>
+          <div class="metric-sub" id="bt-expert-sharpe" style="margin-top:4px;">—</div>
+        </div>
+        <div class="glass-panel-high">
+          <div class="metric-label">Baseline return</div>
+          <div class="metric-value" id="bt-baseline-return">—</div>
+          <div class="metric-sub" id="bt-baseline-sharpe" style="margin-top:4px;">—</div>
+        </div>
+        <div class="glass-panel-high">
+          <div class="metric-label">BUY &amp; HOLD</div>
+          <div class="metric-value" id="bt-bah-return">—</div>
+          <div class="metric-sub" style="margin-top:4px;">Benchmark</div>
+        </div>
+        <div class="glass-panel-high">
+          <div class="metric-label">WIN RATE</div>
+          <div class="metric-value" id="bt-winrate">—</div>
+          <div class="metric-sub" id="bt-drawdown" style="margin-top:4px;">—</div>
+        </div>
+      </div>
+      <!-- Equity Curve Chart -->
+      <div class="glass-panel" style="flex-shrink:0;padding:16px 18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div>
+            <div style="font:600 14px 'Roboto', sans-serif;color:var(--white-soft);">Equity curve · <span id="bt-chart-ticker">—</span></div>
+            <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-subtle);">Expert FLC vs Baseline FLC vs Buy &amp; Hold</div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;">
+            <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:2px;background:var(--gold-soft);display:inline-block;border-radius:1px;"></span><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Expert</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:2px;background:var(--secondary);display:inline-block;border-radius:1px;"></span><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Baseline</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:2px;background:rgba(20, 26, 34, 0.45);display:inline-block;border-radius:1px;border-style:dashed;"></span><span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">B&amp;H</span></div>
+          </div>
+        </div>
+        <div id="bt-chart-container" style="width:100%;height:180px;background:rgba(16, 24, 40, 0.07);border-radius:var(--radius-md);overflow:hidden;"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;" id="bt-date-labels"></div>
+      </div>
+    </div>
+
+    <!-- example numbers shown before the first run -->
+    <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);margin-bottom:8px;flex-shrink:0;">
+      Example numbers. Press Execute Backtest on the left to run a real test.
+    </div>
+    <div id="bt-static-stats" class="stat-row" style="flex-shrink:0;">
+      <div class="glass-panel-high">
+        <div class="metric-label">SHARPE RATIO</div>
+        <div class="metric-value">3.12</div>
+        <div class="metric-sub metric-sub--green">+0.42 vs LLM</div>
+      </div>
+      <div class="glass-panel-high" style="border-left:2px solid var(--semantic-buy);">
+        <div class="metric-label">MAX DRAWDOWN</div>
+        <div class="metric-value">-12.4%</div>
+        <div class="metric-sub">Worst fall from a peak</div>
+      </div>
+      <div class="glass-panel-high">
+        <div class="metric-label">WIN RATE</div>
+        <div class="metric-value">68.4%</div>
+        <div class="metric-sub">Share of winning trades</div>
+      </div>
+      <div class="glass-panel-high">
+        <div class="metric-label" style="display:flex;align-items:center;gap:6px;">
+          <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+          FUZZY-LOGIC MITIGATIONS
+        </div>
+        <div class="metric-value">142</div>
+        <div class="metric-sub">Unclear signals held back</div>
+      </div>
+    </div><!-- /bt-static-stats -->
+
+    <!-- Chart -->
+    <div class="glass-panel" style="flex-shrink:0;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+            <div style="font:600 20px 'Roboto', sans-serif;color:var(--white-soft);">Cumulative Returns Comparison</div>
+            <span class="badge badge--idle" style="font-size:var(--text-xs);">Example</span>
+          </div>
+          <div style="font:400 12px 'Roboto', sans-serif;color:var(--text-muted);">A drawn example, not real data. Run a backtest for real numbers.</div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--gold-soft);display:inline-block;flex-shrink:0;"></span>
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Fuzzy-Agentic Workflow</span>
+          </div>
+          
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:var(--secondary);display:inline-block;flex-shrink:0;"></span>
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Baseline LLM</span>
+          </div>
+          
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:rgba(20, 26, 34, 0.45);display:inline-block;flex-shrink:0;"></span>
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">S&amp;P 500 Index</span>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="bt-chart-container">
+        <svg viewBox="0 0 760 200" style="width:100%;height:200px;">
+          <defs>
+            <pattern id="cg" width="126.7" height="50" patternUnits="userSpaceOnUse">
+              <line x1="126.7" y1="0" x2="126.7" y2="200" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1"/>
+              <line x1="0" y1="50" x2="760" y2="50" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1"/>
+            </pattern>
+            <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#141a22" stop-opacity=".15"/>
+              <stop offset="100%" stop-color="#141a22" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <rect width="760" height="200" fill="url(#cg)"/>
+          <path d="M0,175 C130,170 260,162 380,158 C500,154 630,150 760,148" fill="none" stroke="rgba(20, 26, 34, 0.45)" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <path d="M0,178 C130,168 260,155 380,148 C430,142 480,155 530,148 C600,138 680,128 760,118" fill="none" stroke="var(--secondary)" stroke-width="1.8"/>
+          <path d="M0,180 C130,168 260,148 380,120 C480,95 600,65 760,22" fill="none" stroke="var(--gold-soft)" stroke-width="2.2"/>
+          <path d="M0,180 C130,168 260,148 380,120 C480,95 600,65 760,22 L760,200 L0,200 Z" fill="url(#ag)"/>
+          <line x1="510" y1="0" x2="510" y2="200" stroke="rgba(20, 26, 34, 0.1)" stroke-width="1" stroke-dasharray="4,3"/>
+          <rect x="516" y="38" width="195" height="52" rx="5" fill="rgba(255, 255, 255, 0.95)" stroke="rgba(20, 26, 34, 0.1)"/>
+          <text x="526" y="54" fill="rgba(20, 26, 34, 0.45)" style="font:8px 'Roboto Mono';">Dec 2022, volatile market</text>
+          <text x="526" y="66" fill="rgba(20, 26, 34, 0.7)" style="font:9px 'Roboto Mono';">Expert layer cut exposure</text>
+          <text x="526" y="88" fill="rgba(20, 26, 34, 0.45)" style="font:8px 'Roboto Mono';">baseline kept falling</text>
+          
+          <text x="4" y="196" fill="rgba(20, 26, 34, 0.45)" style="font:9px 'Roboto Mono';">2019</text>
+          
+          <text x="130" y="196" fill="rgba(20, 26, 34, 0.45)" style="font:9px 'Roboto Mono';">2020</text>
+          
+          <text x="256" y="196" fill="rgba(20, 26, 34, 0.45)" style="font:9px 'Roboto Mono';">2021</text>
+          
+          <text x="382" y="196" fill="rgba(20, 26, 34, 0.45)" style="font:9px 'Roboto Mono';">2022</text>
+          
+          <text x="508" y="196" fill="rgba(20, 26, 34, 0.45)" style="font:9px 'Roboto Mono';">2023</text>
+          
+          <text x="680" y="196" fill="rgba(20, 26, 34, 0.45)" style="font:9px 'Roboto Mono';">2024</text>
+          
+        </svg>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-row" style="flex-shrink:0;">
+      <!-- Left column: stacked log tables -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+
+        <!-- Backtest Trade Log -->
+        <div class="glass-panel" style="padding:16px 18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;">Trade log</span>
+            <span id="bt-log-count" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);">no trades yet</span>
+          </div>
+          <div class="table-scroll">
+          <table class="data-table">
+            <thead><tr><th>Timestamp</th><th>Exit Type</th><th>Fuzzy Signal</th><th>Outcome</th></tr></thead>
+            <tbody id="bt-log-tbody">
+              <tr><td colspan="4" style="text-align:center;color:var(--text-faint);font-style:italic;padding:12px;">Trades show up here after a backtest</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <!-- agentic log from /api/agentic/experience-log -->
+        <div class="glass-panel" style="padding:16px 18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;">Recent agentic decisions</span>
+            <span id="bt-agentic-count" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);">Loading…</span>
+          </div>
+          <div class="table-scroll">
+          <table class="data-table">
+            <thead><tr><th>Timestamp</th><th>Final Decision</th><th>Validation</th><th>Stability</th></tr></thead>
+            <tbody id="bt-agentic-tbody">
+              <tr><td colspan="4" style="text-align:center;color:var(--text-faint);font-style:italic;padding:12px;">No agentic runs yet. Start one on the Agentic Layer page.</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+      </div><!-- end left column -->
+
+      <!-- baseline vs expert, refreshed after a run -->
+      <div id="bt-cmp-panel" class="glass-panel">
+        <div class="section-header" style="margin-bottom:6px;">
+          <span class="section-header__title">Baseline vs expert</span>
+          
+          <span class="badge badge--idle" style="margin-left:auto;font-size:var(--text-xs);">Baseline ahead</span>
+          
+        </div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);line-height:1.5;margin-bottom:12px;">
+          The expert layer mainly changes decisions in extreme markets. It does not beat the baseline on every ticker or period.
+        </div>
+
+        
+        
+        
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;">Total Return</span>
+            
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);">B&H -25.2%</span>
+            
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--gold-soft);margin-bottom:3px;">Expert</div>
+              <div class="progress-bar" style="height:4px;margin-bottom:2px;">
+                <div class="progress-bar__fill" style="width:87%;background:var(--gold-soft);"></div>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--gold-soft);font-weight:600;">+6.29%</span>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--secondary);margin-bottom:3px;">Baseline</div>
+              <div class="progress-bar" style="height:4px;margin-bottom:2px;">
+                <div class="progress-bar__fill" style="width:99%;background:var(--secondary);"></div>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--secondary);">+7.18%</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;">Win Rate</span>
+            
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--gold-soft);margin-bottom:3px;">Expert</div>
+              <div class="progress-bar" style="height:4px;margin-bottom:2px;">
+                <div class="progress-bar__fill" style="width:91%;background:var(--gold-soft);"></div>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--gold-soft);font-weight:600;">+75.00%</span>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--secondary);margin-bottom:3px;">Baseline</div>
+              <div class="progress-bar" style="height:4px;margin-bottom:2px;">
+                <div class="progress-bar__fill" style="width:99%;background:var(--secondary);"></div>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--secondary);">+81.80%</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);text-transform:uppercase;">Sharpe Ratio</span>
+            
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--gold-soft);margin-bottom:3px;">Expert</div>
+              <div class="progress-bar" style="height:4px;margin-bottom:2px;">
+                <div class="progress-bar__fill" style="width:68%;background:var(--gold-soft);"></div>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--gold-soft);font-weight:600;">0.684</span>
+            </div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--secondary);margin-bottom:3px;">Baseline</div>
+              <div class="progress-bar" style="height:4px;margin-bottom:2px;">
+                <div class="progress-bar__fill" style="width:98%;background:var(--secondary);"></div>
+              </div>
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--secondary);">0.989</span>
+            </div>
+          </div>
+        </div>
+        
+
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:rgba(18, 164, 107, 0.05);border:1px solid rgba(18, 164, 107, 0.12);border-radius:var(--radius-md);margin-top:6px;">
+          <span style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted);">Expert vs Buy &amp; Hold</span>
+          <span style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--semantic-buy);">
+            +31.51%
+          </span>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);margin-top:8px;text-align:center;">
+          Last 30% of data held out · 18% extreme sentiment days
+        </div>
+
+        
+      </div>
+    </div>
+
+  </div><!-- /right -->
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    
+  </body>
+</html>

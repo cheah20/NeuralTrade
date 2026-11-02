@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Market Intelligence · NeuralTrade</title>
+    <link rel="shortcut icon" href="data:,">
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+    
+  <style>.demo-strip{position:sticky;top:0;z-index:9999;padding:6px 12px;text-align:center;font:600 13px/1.4 system-ui,sans-serif;background:#fff4d6;color:#5c4400;border-bottom:1px solid #ecd9a0}.demo-strip a{color:#5c4400;text-decoration:underline}</style><script src="demo-data.js"></script><script src="demo-shim.js"></script></head>
+  <body><div class="demo-strip">Online demo with recorded data. AI reasoning and live news run in demo mode here (they need API keys). <a href="../">About this demo</a></div>
+    <div class="app-shell">
+      <!-- dark backdrop behind the menu on phones -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- side menu: hidden at the left edge, slides out on hover -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">NeuralTrade</div>
+          <div class="sidebar-subtitle">Fuzzy logic trading desk</div>
+        </div>
+
+        <nav class="nav-items">
+          <a
+            href="index.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Dashboard
+            <kbd>1</kbd>
+          </a>
+          <a
+            href="market-intelligence.html"
+            class="nav-item active"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v9l5 3" />
+            </svg>
+            Market Intelligence
+            <kbd>2</kbd>
+          </a>
+          <a
+            href="decision-logic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M17.66 6.34l-1.41 1.41M6.34 17.66l-1.41 1.41"
+              />
+            </svg>
+            Decision Logic
+            <kbd>3</kbd>
+          </a>
+          <a
+            href="backtesting.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Backtesting
+            <kbd>4</kbd>
+          </a>
+          <a
+            href="agentic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+              <circle cx="12" cy="12" r="7" stroke-dasharray="2 2"/>
+            </svg>
+            Agentic Layer
+            <kbd>5</kbd>
+          </a>
+          <a
+            href="walkthrough.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 12l9 5 9-5"/>
+              <path d="M3 17l9 5 9-5"/>
+            </svg>
+            Tutorial
+            <kbd>6</kbd>
+          </a>
+          <a
+            href="settings.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.14 12.94a7 7 0 0 0 .07-.94 7 7 0 0 0-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.41l-.36 2.54a7 7 0 0 0-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.63 8.47a.49.49 0 0 0 .12.64l2.03 1.58a7 7 0 0 0-.07.94c0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.49.41h4c.25 0 .45-.17.49-.41l.36-2.54a7 7 0 0 0 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.64z"
+              />
+            </svg>
+            Settings
+            <kbd>7</kbd>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="sidebar-hint">Press 1–7 to switch pages.</p>
+          <button class="btn-execute" id="btn-execute-trade">
+            <svg
+              style="width: 15px; height: 15px; fill: currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Execute Trade
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation" title="Menu">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="topbar-logo">NeuralTrade<small>Market Intelligence</small></div>
+            
+            <div class="topbar-status">
+              <span class="status-dot"></span>
+              Market data live
+            </div>
+            
+          </div>
+
+          
+<div style="flex: 1; max-width: 280px; margin-left: auto">
+  <div style="position: relative">
+    <svg
+      style="
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 14px;
+        height: 14px;
+        stroke: rgba(20, 26, 34, 0.45);
+        fill: none;
+        stroke-width: 1.5;
+      "
+      viewBox="0 0 24 24"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.35-4.35" />
+    </svg>
+    <input
+      id="mi-search"
+      type="text"
+      class="glass-input"
+      placeholder="Search headlines"
+      style="padding-left: 34px; font-size: 13px"
+    />
+  </div>
+</div>
+<div class="topbar-right" style="margin-left: 16px">
+  <span class="topbar-clock" id="topbar-clock">--:--:--</span>
+</div>
+
+        </header>
+
+        <div class="page-scroll">
+          <div class="page-layout">
+
+<!-- Page Header -->
+<div class="mb-20">
+  <div class="page-title">Market Intelligence</div>
+  <div class="page-subtitle">Finance headlines from Marketaux, or a demo feed when no API key is set.</div>
+</div>
+
+<!-- Sentiment Filter Tabs -->
+<div class="source-tabs" id="mi-source-tabs">
+  <button class="btn-primary mi-source-btn" data-filter="ALL" style="padding: 8px 18px; font-size: 11px">
+    All
+  </button>
+  <button class="btn-secondary mi-source-btn" data-filter="BULLISH">Bullish</button>
+  <button class="btn-secondary mi-source-btn" data-filter="BEARISH">Bearish</button>
+  <button class="btn-secondary mi-source-btn" data-filter="NEUTRAL">Neutral</button>
+  <button class="btn-secondary" id="mi-filters-btn" style="margin-left: auto">
+    <svg
+      style="
+        width: 12px;
+        height: 12px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+      "
+      viewBox="0 0 24 24"
+    >
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="8" y1="12" x2="16" y2="12" />
+      <line x1="11" y1="18" x2="13" y2="18" />
+    </svg>
+    Filters
+  </button>
+</div>
+
+<div class="feed-with-panel">
+  <!-- LIVE FEED -->
+  <div class="glass-panel glass-panel--flush">
+    <!-- Feed Header -->
+    <div class="mi-feed-header">
+      <div style="display: flex; align-items: center; gap: 8px">
+        <span class="status-dot" id="mi-feed-status-dot"></span>
+        <span
+          id="mi-feed-status-label"
+          style="
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+          "
+          >Loading…</span
+        >
+      </div>
+      <span
+        data-clock
+        style="
+          font-family: var(--font-mono);
+          font-size: 10px;
+          color: rgba(20, 26, 34, 0.45);
+        "
+        ></span
+      >
+    </div>
+    <div id="mi-feed-updated" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);padding:0 16px 10px;"></div>
+
+    <!-- filled in by main.js from /api/market-news -->
+    <div class="mi-feed-container" id="mi-feed-container">
+      <div class="body-sm" style="padding:16px;">Loading market news…</div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="flex-col flex-col-gap-md">
+    <!-- short summary of the headlines -->
+    <div class="glass-panel glass-panel--gold">
+      <div class="section-header" style="margin-bottom:8px;">
+        <span class="section-header__title" style="color:var(--gold-soft);">Market brief</span>
+        <span id="amb-source-badge" class="badge badge--idle" style="margin-left:auto;font-size:var(--text-xs);">Loading…</span>
+      </div>
+      <div id="amb-updated" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);margin-bottom:10px;">—</div>
+      <div id="amb-brief-text" class="body-sm" style="margin-bottom:8px;">Loading market brief…</div>
+      <div id="amb-brief-mode" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-faint);margin-bottom:10px;"></div>
+      <div id="amb-headlines" class="flex-col flex-col-gap-sm"></div>
+    </div>
+
+    <!-- Sentiment Aggregator -->
+    <div class="glass-panel">
+      <div class="section-header">
+        <span class="section-header__title">Sentiment</span>
+        <span
+          title="Demo value. It changes every few seconds and is not a real sentiment feed."
+          style="
+            margin-left: auto;
+            cursor: pointer;
+            opacity: 0.5;
+            font-size: 12px;
+          "
+          >ⓘ</span
+        >
+      </div>
+      <div class="sentiment-gauge">
+        <svg viewBox="0 0 160 90" style="width: 100%; max-width: 200px">
+          <defs>
+            <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#e5443b" />
+              <stop offset="40%" stop-color="#d98a00" />
+              <stop offset="100%" stop-color="#12a46b" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M 15 80 A 65 65 0 0 1 145 80"
+            fill="none"
+            stroke="rgba(20, 26, 34, 0.07)"
+            stroke-width="10"
+            stroke-linecap="round"
+          />
+          <path
+            d="M 15 80 A 65 65 0 0 1 145 80"
+            fill="none"
+            stroke="url(#sg)"
+            stroke-width="10"
+            stroke-linecap="round"
+            stroke-dasharray="204"
+            stroke-dashoffset="65"
+          />
+          <line
+            x1="80"
+            y1="80"
+            x2="116"
+            y2="34"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <circle cx="80" cy="80" r="5" fill="white" />
+          <text
+            x="8"
+            y="95"
+            fill="rgba(20, 26, 34, 0.45)"
+            style="font: 8px &quot;Roboto Mono&quot;"
+          >
+            Fear
+          </text>
+          <text
+            x="70"
+            y="95"
+            fill="rgba(20, 26, 34, 0.45)"
+            style="font: 8px &quot;Roboto Mono&quot;"
+          >
+            Neutral
+          </text>
+          <text
+            x="130"
+            y="95"
+            fill="rgba(20, 26, 34, 0.45)"
+            style="font: 8px &quot;Roboto Mono&quot;"
+          >
+            Greed
+          </text>
+        </svg>
+        <div class="sentiment-gauge__value" id="mi-sentiment-value">68</div>
+        <div class="sentiment-gauge__label" id="mi-sentiment-label">Mostly greed</div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:rgba(20, 26, 34, 0.45);margin-top:4px;text-align:center;">demo value</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    
+  </body>
+</html>

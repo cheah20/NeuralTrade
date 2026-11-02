@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentic Layer · NeuralTrade</title>
+    <link rel="shortcut icon" href="data:,">
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+    
+  <style>.demo-strip{position:sticky;top:0;z-index:9999;padding:6px 12px;text-align:center;font:600 13px/1.4 system-ui,sans-serif;background:#fff4d6;color:#5c4400;border-bottom:1px solid #ecd9a0}.demo-strip a{color:#5c4400;text-decoration:underline}</style><script src="demo-data.js"></script><script src="demo-shim.js"></script></head>
+  <body><div class="demo-strip">Online demo with recorded data. AI reasoning and live news run in demo mode here (they need API keys). <a href="../">About this demo</a></div>
+    <div class="app-shell">
+      <!-- dark backdrop behind the menu on phones -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- side menu: hidden at the left edge, slides out on hover -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">NeuralTrade</div>
+          <div class="sidebar-subtitle">Fuzzy logic trading desk</div>
+        </div>
+
+        <nav class="nav-items">
+          <a
+            href="index.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Dashboard
+            <kbd>1</kbd>
+          </a>
+          <a
+            href="market-intelligence.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v9l5 3" />
+            </svg>
+            Market Intelligence
+            <kbd>2</kbd>
+          </a>
+          <a
+            href="decision-logic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M17.66 6.34l-1.41 1.41M6.34 17.66l-1.41 1.41"
+              />
+            </svg>
+            Decision Logic
+            <kbd>3</kbd>
+          </a>
+          <a
+            href="backtesting.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Backtesting
+            <kbd>4</kbd>
+          </a>
+          <a
+            href="agentic.html"
+            class="nav-item active"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+              <circle cx="12" cy="12" r="7" stroke-dasharray="2 2"/>
+            </svg>
+            Agentic Layer
+            <kbd>5</kbd>
+          </a>
+          <a
+            href="walkthrough.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 12l9 5 9-5"/>
+              <path d="M3 17l9 5 9-5"/>
+            </svg>
+            Tutorial
+            <kbd>6</kbd>
+          </a>
+          <a
+            href="settings.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.14 12.94a7 7 0 0 0 .07-.94 7 7 0 0 0-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.41l-.36 2.54a7 7 0 0 0-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.63 8.47a.49.49 0 0 0 .12.64l2.03 1.58a7 7 0 0 0-.07.94c0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.49.41h4c.25 0 .45-.17.49-.41l.36-2.54a7 7 0 0 0 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.64z"
+              />
+            </svg>
+            Settings
+            <kbd>7</kbd>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="sidebar-hint">Press 1–7 to switch pages.</p>
+          <button class="btn-execute" id="btn-execute-trade">
+            <svg
+              style="width: 15px; height: 15px; fill: currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Execute Trade
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation" title="Menu">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="topbar-logo">NeuralTrade<small>Agentic Layer</small></div>
+            
+            <div class="topbar-status">
+              <span class="status-dot"></span>
+              Market data live
+            </div>
+            
+          </div>
+
+          
+          <div class="topbar-right">
+            <span class="topbar-clock" id="topbar-clock">--:--:--</span>
+            <button class="btn-avatar" title="User">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--gold-soft); fill: none; stroke-width: 1.5">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-2.667 3.582-4 8-4s8 1.333 8 4" />
+              </svg>
+            </button>
+          </div>
+          
+        </header>
+
+        <div class="page-scroll">
+          <div class="page-layout">
+<div class="agentic-grid" style="padding:2px 0">
+
+  <!-- left: agent profile and knowledge base -->
+  <div class="flex-col flex-col-gap-md">
+
+    <!-- agent profile; mission and disclaimer open on click -->
+    <div class="glass-panel glass-panel--gold" style="flex-shrink:0">
+      <div class="panel-header">
+        <span class="label-xs" style="color:var(--gold-soft)">Agent profile</span>
+        <span class="badge badge--synced">Active</span>
+      </div>
+
+      
+      <div style="margin-bottom:12px;padding:10px 12px;background:rgba(16, 24, 40, 0.063);border-radius:var(--radius-md)">
+        <div class="label-xs" style="margin-bottom:3px">Agent ID</div>
+        <div class="data-value" style="color:var(--gold-soft)">Profit Maximiser Agent</div>
+        <div class="label-xs" style="margin-top:3px;text-transform:none">NT-PM-001 · 1.0.0-PA3</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div class="inner-card" style="padding:9px 11px">
+          <div class="label-xs" style="color:var(--semantic-buy);margin-bottom:4px">Allowed</div>
+          <div class="data-value">8</div>
+          <div class="label-xs" style="text-transform:none">actions</div>
+        </div>
+        <div class="inner-card" style="padding:9px 11px">
+          <div class="label-xs" style="color:var(--semantic-sell);margin-bottom:4px">Blocked</div>
+          <div class="data-value">7</div>
+          <div class="label-xs" style="text-transform:none">actions</div>
+        </div>
+      </div>
+
+      <button class="btn-icon" style="width:100%;padding:5px;font-size:10px;margin-bottom:0" onclick="toggleSection('agent-profile-details', this)">Mission and disclaimer ▾</button>
+      <div id="agent-profile-details" style="display:none;margin-top:10px">
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="margin-bottom:5px">Mission</div>
+          <div class="body-sm">To maximise risk-adjusted returns by proposing fuzzy rule adjustments grounded in multi-indicator technical analysis, while strictly deferring to the Human Expert Knowledge Base an…</div>
+        </div>
+        <div class="evidence-box evidence-box--gold" style="margin-bottom:8px">
+          <div class="label-xs" style="margin-bottom:4px">Primary objective</div>
+          <div class="body-sm" style="color:var(--gold-soft)">Maximise Sharpe Ratio and Total Return</div>
+        </div>
+        <div class="muted-box">
+          <div class="label-xs" style="text-transform:none;line-height:1.6">This system is an academic Decision Support System built for PA3 research purposes. All outputs are simulated or model-d…</div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- knowledge base summary, closed by default -->
+    <div class="glass-panel" style="flex-shrink:0">
+      <div class="panel-header" style="margin-bottom:0">
+        <span class="label-xs">Expert knowledge base</span>
+        <div style="display:flex;gap:6px;align-items:center">
+          
+          <span class="badge badge--idle">16 Rules</span>
+          
+          <button class="btn-icon" style="width:auto;padding:4px 10px;font-size:10px" id="kb-toggle-btn" onclick="toggleSection('kb-details', this)">Show ▾</button>
+        </div>
+      </div>
+
+      <div id="kb-details" style="display:none;max-height:380px;overflow-y:auto;margin-top:10px">
+        
+        
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:6px;padding:4px 8px;background:rgba(20, 26, 34, 0.054);border-radius:4px">
+            RSI (3)
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">RSI-001</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">RSI ≤ 30 indicates an oversold condition. Prices have fallen rapidly and a mean-reversion …</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">RSI-002</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">RSI ≥ 70 indicates an overbought condition. Momentum has become stretched and price is sus…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">RSI-003</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">RSI alone is insufficient to trigger a high-confidence Buy or Sell decision. RSI can remai…</div>
+          </div>
+          
+        </div>
+        
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:6px;padding:4px 8px;background:rgba(20, 26, 34, 0.054);border-radius:4px">
+            MACD (3)
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">MACD-001</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">A positive MACD histogram (fast EMA above slow EMA) indicates bullish short-term momentum.…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">MACD-002</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">A negative MACD histogram (fast EMA below slow EMA) indicates bearish momentum. The histog…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">MACD-003</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">MACD signals are momentum-based and can produce false signals in sideways or low-volatilit…</div>
+          </div>
+          
+        </div>
+        
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:6px;padding:4px 8px;background:rgba(20, 26, 34, 0.054);border-radius:4px">
+            ATR (2)
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">ATR-001</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">Average True Range (ATR) is a measure of market volatility — how much price moves on avera…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">ATR-002</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">High ATR correctly justifies increasing the risk penalty, widening stop-loss distances, an…</div>
+          </div>
+          
+        </div>
+        
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:6px;padding:4px 8px;background:rgba(20, 26, 34, 0.054);border-radius:4px">
+            Bollinger Bands (3)
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">BB-001</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">Bollinger Bands are constructed from a 20-period moving average with upper and lower bands…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">BB-002</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">When price is near or below the lower Bollinger Band AND RSI is simultaneously in oversold…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">BB-003</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">When price is near or above the upper Bollinger Band AND RSI is simultaneously in overboug…</div>
+          </div>
+          
+        </div>
+        
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:6px;padding:4px 8px;background:rgba(20, 26, 34, 0.054);border-radius:4px">
+            Multi-Indicator Confirmation (1)
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">MULTI-001</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">Strong trading decisions require confirmation from at least two independent indicator cate…</div>
+          </div>
+          
+        </div>
+        
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:6px;padding:4px 8px;background:rgba(20, 26, 34, 0.054);border-radius:4px">
+            Backtesting Validation (3)
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">BT-001</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">Any strategy adjustment must be evaluated using four core performance metrics: Sharpe Rati…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">BT-002</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">If a proposed fuzzy rule adjustment improves Total Return but causes Maximum Drawdown to w…</div>
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">BT-003</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">If a fuzzy rule adjustment shows improved performance on training data (in-sample) but deg…</div>
+          </div>
+          
+        </div>
+        
+        <div style="margin-bottom:12px">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:6px;padding:4px 8px;background:rgba(20, 26, 34, 0.054);border-radius:4px">
+            System Governance (1)
+          </div>
+          
+          <div class="evidence-box" style="margin-bottom:4px;padding:6px 9px">
+            <div class="label-xs" style="text-transform:none;color:var(--text-muted);margin-bottom:2px">SYS-001</div>
+            <div class="label-xs" style="text-transform:none;line-height:1.5">All LLM-generated fuzzy adjustment suggestions must pass through the Human Expert Knowledg…</div>
+          </div>
+          
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- middle: the pipeline -->
+  <div class="flex-col flex-col-gap-md">
+
+    <!-- Controls -->
+    <div class="glass-panel glass-panel--inset" style="padding:14px 16px">
+      <div class="panel-header" style="margin-bottom:10px">
+        <div>
+          <div class="panel-title" style="font-size:14px">Agentic Decision Pipeline</div>
+          <div class="label-xs" style="text-transform:none;margin-top:2px">Market Data → Baseline → Expert → LLM Proposal → Validation → Final Decision</div>
+          <div id="agentic-source-hint" class="label-xs" style="text-transform:none;margin-top:4px;color:var(--text-muted)"></div>
+        </div>
+        <span id="agentic-mode-badge" class="badge badge--idle">Demo mode</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button id="btn-run-agentic" class="btn-execute" style="flex:1;min-width:140px;padding:10px 16px;font-size:11px" onclick="runAgenticAnalysis()">
+          <svg style="width:13px;height:13px;fill:currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          Run Agentic Analysis
+        </button>
+        <button id="btn-failure-demo" class="btn-icon" style="width:auto;padding:8px 14px;font-family:var(--font-mono);font-size:10px;color:var(--text-muted);border:1px solid rgba(20, 26, 34, 0.1);border-radius:var(--radius-md)" onclick="loadFailureDemo()">
+          Failure Demo
+        </button>
+      </div>
+    </div>
+
+    <!-- Analysis Results (hidden until run) -->
+    <div id="agentic-results" style="display:none" class="flex-col flex-col-gap-md">
+
+      <!-- one row per stage, top to bottom -->
+      <div class="glass-panel-high">
+        <div class="panel-header">
+          <span class="label-xs">Agentic decision flow</span>
+        </div>
+
+        <!-- Stage 1: Market Context -->
+        <div class="pipeline-stage">
+          <div class="pipeline-stage__num">1</div>
+          <div style="flex:1">
+            <div class="pipeline-stage__label" style="margin-bottom:6px">Market context</div>
+            <div id="ctx-chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+          </div>
+        </div>
+
+        <!-- Stage 2: Baseline vs Expert vs ANFIS -->
+        <div class="pipeline-stage">
+          <div class="pipeline-stage__num">2</div>
+          <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+            <div>
+              <div class="label-xs" style="margin-bottom:5px">Baseline fuzzy</div>
+              <div id="baseline-label" class="data-value--lg">—</div>
+              <div id="baseline-score" class="label-xs" style="text-transform:none;margin-top:3px">score: — · conf: —</div>
+            </div>
+            <div>
+              <div class="label-xs" style="margin-bottom:5px">EXPERT FUZZY (regime + masking)</div>
+              <div id="expert-label" class="data-value--lg" style="color:var(--gold-soft)">—</div>
+              <div id="expert-score" class="label-xs" style="text-transform:none;margin-top:3px">score: — · conf: —</div>
+            </div>
+            <div>
+              <div class="label-xs" style="margin-bottom:5px">ANFIS <span title="Adaptive neuro-fuzzy inference system (Jang, 1993). Trained on price history, runs next to the expert layer. See anfis.py" style="cursor:help;opacity:.5">ⓘ</span></div>
+              <div id="anfis-label" class="data-value--lg">—</div>
+              <div id="anfis-score" class="label-xs" style="text-transform:none;margin-top:3px">score: — · conf: —</div>
+              <div id="anfis-rule" class="label-xs" style="text-transform:none;margin-top:2px;color:var(--text-faint)"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 3: LLM suggestion -->
+        <div class="pipeline-stage">
+          <div class="pipeline-stage__num">3</div>
+          <div style="flex:1">
+            <div class="panel-header" style="margin-bottom:8px">
+              <span class="pipeline-stage__label">LLM proposed adjustment <span title="Only a suggestion, not applied yet" style="cursor:help;opacity:.5">ⓘ</span></span>
+              <span id="llm-mode-badge" class="badge badge--idle">—</span>
+            </div>
+            <div id="llm-action" class="body-sm" style="margin-bottom:10px">—</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+              <div class="inner-card" style="padding:8px 10px">
+                <div class="label-xs" style="margin-bottom:3px">Score delta</div>
+                <div id="llm-delta" class="data-value">—</div>
+              </div>
+              <div class="inner-card" style="padding:8px 10px">
+                <div class="label-xs" style="margin-bottom:3px">Direction</div>
+                <div id="llm-direction" class="label-sm" style="text-transform:none">—</div>
+              </div>
+              <div class="inner-card" style="padding:8px 10px">
+                <div class="label-xs" style="margin-bottom:3px">LLM confidence</div>
+                <div id="llm-conf" class="data-value">—</div>
+              </div>
+            </div>
+            <button class="btn-icon" style="width:100%;padding:5px;font-size:10px;margin-top:8px" onclick="toggleSection('llm-prompt-details', this)">Show Exact Prompt &amp; Raw Response ▾</button>
+            <div id="llm-prompt-details" style="display:none;margin-top:8px">
+              <div class="label-xs" style="margin-bottom:3px">System prompt</div>
+              <pre id="llm-system-prompt" class="body-sm" style="white-space:pre-wrap;background:rgba(16, 24, 40, 0.063);padding:8px 10px;border-radius:var(--radius-md);margin-bottom:8px;max-height:160px;overflow-y:auto">—</pre>
+              <div class="label-xs" style="margin-bottom:3px">User prompt</div>
+              <pre id="llm-user-prompt" class="body-sm" style="white-space:pre-wrap;background:rgba(16, 24, 40, 0.063);padding:8px 10px;border-radius:var(--radius-md);margin-bottom:8px;max-height:160px;overflow-y:auto">—</pre>
+              <div class="label-xs" style="margin-bottom:3px">Raw LLM response</div>
+              <pre id="llm-raw-response" class="body-sm" style="white-space:pre-wrap;background:rgba(16, 24, 40, 0.063);padding:8px 10px;border-radius:var(--radius-md);max-height:160px;overflow-y:auto">—</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 4: Human Expert Validation -->
+        <div id="validation-panel" class="pipeline-stage">
+          <div class="pipeline-stage__num">4</div>
+          <div style="flex:1">
+            <div class="panel-header" style="margin-bottom:8px">
+              <span class="pipeline-stage__label">Human expert validation gate <span title="Rule check only, no LLM" style="cursor:help;opacity:.5">ⓘ</span></span>
+              <span id="val-status-badge" class="badge badge--idle">—</span>
+            </div>
+            <div id="val-reason" class="body-sm" style="margin-bottom:10px">—</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div>
+                <div class="label-xs" style="color:var(--semantic-sell);margin-bottom:4px">Violated rules</div>
+                <div id="val-violated" class="label-sm" style="text-transform:none">—</div>
+              </div>
+              <div>
+                <div class="label-xs" style="color:var(--semantic-buy);margin-bottom:4px">Supporting rules</div>
+                <div id="val-supporting" class="label-sm" style="text-transform:none">—</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage 5: final decision -->
+        <div id="final-panel" class="pipeline-stage pipeline-stage--active" style="padding:16px;margin-top:4px;margin-bottom:0">
+          <div class="pipeline-stage__num" style="color:var(--gold-soft)">5</div>
+          <div style="flex:1">
+            <div class="panel-header" style="margin-bottom:10px">
+              <span class="label-xs" style="color:var(--gold-soft)">Final agentic fuzzy decision</span>
+              <span id="stability-badge" class="badge badge--idle">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div>
+                <div class="label-xs" style="margin-bottom:4px">Decision signal</div>
+                <div id="final-label" style="font:700 22px 'Roboto', sans-serif;color:var(--gold-soft)">—</div>
+              </div>
+              <div style="text-align:right">
+                <div class="label-xs" style="margin-bottom:4px">Score / confidence</div>
+                <div id="final-score-conf" class="data-value" style="font-size:14px">— / —</div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span class="label-xs">System stability</span>
+                <span id="stability-pct" class="label-xs" style="color:var(--gold-soft)">—</span>
+              </div>
+              <div class="progress-bar" style="height:5px">
+                <div id="stability-bar" class="progress-bar__fill" style="width:0%;background:var(--gold-soft)"></div>
+              </div>
+            </div>
+            <div id="reflection-note" class="label-xs" style="margin-top:10px;text-transform:none;line-height:1.6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Failure Demo Panel (hidden until triggered) -->
+    <div id="failure-demo-panel" style="display:none" class="flex-col flex-col-gap-md">
+      <div class="glass-panel">
+        <div class="panel-header">
+          <span class="label-xs" style="color:var(--semantic-sell)">Failure reflection demo</span>
+          <span id="fail-scenario-id" class="badge badge--error">—</span>
+        </div>
+        <div class="panel-title" style="font-size:13px;margin-bottom:6px" id="fail-title">—</div>
+        <div id="fail-description" class="body-sm" style="margin-bottom:12px">—</div>
+
+        <div class="evidence-box evidence-box--sell">
+          <div class="label-xs" style="color:var(--semantic-sell);margin-bottom:5px">LLM incorrect suggestion</div>
+          <div id="fail-llm-action" class="body-sm"></div>
+        </div>
+
+        <div class="evidence-box evidence-box--sell">
+          <div class="label-xs" style="color:var(--semantic-sell);margin-bottom:5px">Gate decision: <span id="fail-gate-status">Rejected</span></div>
+          <div id="fail-gate-reason" class="body-sm"></div>
+          <div id="fail-violated" class="label-xs" style="margin-top:6px;color:var(--semantic-sell);text-transform:none"></div>
+        </div>
+
+        <div class="evidence-box evidence-box--gold">
+          <div class="label-xs" style="color:var(--gold-soft);margin-bottom:5px">REFLECTION &amp; CORRECTIVE PRINCIPLE</div>
+          <div id="fail-root-cause" class="body-sm" style="margin-bottom:6px"></div>
+          <div id="fail-lesson" class="body-sm" style="color:var(--gold-soft);font-weight:600"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- right: experience log and modules -->
+  <div class="flex-col flex-col-gap-md">
+
+    <!-- Experience Log -->
+    <div class="glass-panel" style="flex:1;min-height:200px">
+      <div class="panel-header">
+        <span class="label-xs">Experience log</span>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span id="log-count-badge" class="badge badge--idle">0 Entries</span>
+          <button class="btn-icon" style="font-size:10px" onclick="loadExperienceLog()" title="Refresh">↺</button>
+        </div>
+      </div>
+      <div id="experience-log-content" class="log-stream" style="max-height:340px;overflow-y:auto">
+        <div class="body-sm">No entries yet. Run an analysis to start logging.</div>
+      </div>
+    </div>
+
+    <!-- module list, opens on click -->
+    
+    
+    <div class="glass-panel glass-panel--inset" style="flex-shrink:0">
+      <div class="label-xs" style="display:flex;align-items:center;justify-content:space-between">
+        <span>Modules</span>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="badge badge--synced" style="text-transform:none">10 files</span>
+          <button class="btn-icon" style="width:auto;padding:4px 10px;font-size:10px" onclick="toggleSection('pa3-details', this)">Show ▾</button>
+        </div>
+      </div>
+      <div id="pa3-details" style="display:none;margin-top:10px">
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Agent Profile</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">agent_profile.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">LLM Reasoning Layer</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">llm_reasoning.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Human Expert KB</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">human_expert_kb.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Expert Validation Gate</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">expert_validation_gate.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Experience Log</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">memory_log.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Failure Reflection</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">failure_reflection.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Agentic Pipeline</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">agentic_pipeline.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">ANFIS Neuro-Fuzzy Layer</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">anfis.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Fuzzy Engine (existing)</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">fuzzy_engine.py</span>
+        </div>
+        
+        <div class="status-row">
+          <span class="label-xs" style="color:var(--semantic-buy)">✓</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-muted);flex:1;margin-left:8px">Backtesting (existing)</span>
+          <span class="label-xs" style="text-transform:none;color:var(--text-faint)">backtester.py</span>
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- Risk Disclaimer -->
+    <div class="muted-box">
+      <div class="label-xs" style="text-transform:none;line-height:1.6">
+        Coursework project. The signals are simulated and are not financial advice.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// open / close a section
+function toggleSection(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const hidden = el.style.display === 'none';
+  el.style.display = hidden ? 'block' : 'none';
+  if (btn) {
+    if (hidden) {
+      btn.dataset.showLabel = btn.textContent;
+      btn.textContent = 'Hide ▴';
+    } else {
+      btn.textContent = btn.dataset.showLabel || 'Show ▾';
+    }
+  }
+}
+
+// Status colour helpers
+// only the final label gets the accent colour
+const LABEL_COLORS = {
+  'Strong Buy':  'var(--semantic-buy)',
+  'Buy':         'var(--semantic-buy)',
+  'Hold':        'var(--white-soft)',
+  'Sell':        'var(--semantic-sell)',
+  'Strong Sell': 'var(--semantic-sell)',
+};
+const STATUS_BADGE = {
+  'APPROVED':     'badge--synced',
+  'REJECTED':     'badge--error',
+  'MODIFIED':     'badge--processing',
+  'NEEDS_REVIEW': 'badge--processing',
+};
+const STATUS_COLOR = {
+  'APPROVED':     'var(--semantic-buy)',
+  'REJECTED':     'var(--semantic-sell)',
+  'MODIFIED':     'var(--semantic-warning)',
+  'NEEDS_REVIEW': 'var(--semantic-warning)',
+};
+
+function labelColor(label) {
+  return LABEL_COLORS[label] || 'var(--white-soft)';
+}
+
+// short text with the full version on hover
+function setTruncated(id, text, maxLen) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const full = text || '—';
+  el.textContent = full.length > maxLen ? full.slice(0, maxLen) + '…' : full;
+  el.title = full;
+}
+
+// Chip builder
+function chip(label, value, color) {
+  return `<div class="inner-card" style="padding:6px 10px;display:inline-flex;flex-direction:column;align-items:center;gap:1px">
+    <span class="label-xs">${label}</span>
+    <span class="data-value" style="color:${color}">${value}</span>
+  </div>`;
+}
+
+// Run Agentic Analysis
+async function runAgenticAnalysis() {
+  const btn = document.getElementById('btn-run-agentic');
+  btn.textContent = '⟳ Analysing…';
+  btn.disabled = true;
+  document.getElementById('failure-demo-panel').style.display = 'none';
+
+  try {
+    const ticker = localStorage.getItem('astdss:lastTicker');
+    const url = ticker
+      ? `/api/agentic/analyze?symbol=${encodeURIComponent(ticker)}&demo=false`
+      : '/api/agentic/analyze';
+    const resp = await fetch(url);
+    const d    = await resp.json();
+    if (d.error) { alert(d.error); return; }
+    renderAgenticResult(d);
+    document.getElementById('agentic-results').style.display = 'flex';
+    loadExperienceLog();
+  } catch(e) {
+    alert('Agentic analysis failed: ' + e.message);
+  } finally {
+    btn.innerHTML = '<svg style="width:13px;height:13px;fill:currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Run Agentic Analysis';
+    btn.disabled = false;
+  }
+}
+
+function renderAgenticResult(d) {
+  const ctx  = d.market_context || {};
+  const bl   = d.baseline_result || {};
+  const ex   = d.expert_result   || {};
+  const llm  = d.llm_suggestion  || {};
+  const val  = d.validation_result || {};
+  const fin  = d.final_decision  || {};
+  const sft  = val.applied_shift || {};
+
+  // Mode badge
+  document.getElementById('agentic-mode-badge').textContent = d.demo_mode ? 'DEMO MODE' : 'LIVE MODE';
+
+  // Context chips
+  const rsiColor = ctx.rsi < 35 ? 'var(--semantic-buy)' : ctx.rsi > 65 ? 'var(--semantic-sell)' : 'var(--white-soft)';
+  document.getElementById('ctx-chips').innerHTML =
+    chip('SYMBOL', ctx.symbol||'DEMO', 'var(--gold-soft)') +
+    chip('RSI', (ctx.rsi||0).toFixed(1), rsiColor) +
+    chip('MACD HIST', (ctx.macd_hist||0).toFixed(3), ctx.macd_hist > 0 ? 'var(--semantic-buy)' : 'var(--semantic-sell)') +
+    chip('ATR', (ctx.atr||0).toFixed(2), ctx.atr > 6 ? 'var(--semantic-sell)' : 'var(--white-soft)') +
+    chip('SENTIMENT', (ctx.sentiment||0).toFixed(2), ctx.sentiment > 0 ? 'var(--semantic-buy)' : ctx.sentiment < 0 ? 'var(--semantic-sell)' : 'var(--white-soft)') +
+    chip('REGIME', (ctx.market_regime||'—').replace(/_/g,' '), 'var(--gold-soft)');
+
+  // Baseline
+  document.getElementById('baseline-label').textContent = bl.label || '—';
+  document.getElementById('baseline-label').style.color = labelColor(bl.label);
+  document.getElementById('baseline-score').textContent =
+    `score: ${(bl.score||0).toFixed(3)}  ·  conf: ${((bl.confidence||0)*100).toFixed(0)}%`;
+
+  // Expert
+  document.getElementById('expert-label').textContent = ex.label || '—';
+  document.getElementById('expert-score').textContent =
+    `score: ${(ex.score||0).toFixed(3)}  ·  conf: ${((ex.confidence||0)*100).toFixed(0)}%`;
+
+  // ANFIS (anfis.py)
+  const anfis = d.anfis_result || {};
+  document.getElementById('anfis-label').textContent = anfis.label || '—';
+  document.getElementById('anfis-label').style.color = labelColor(anfis.label);
+  document.getElementById('anfis-score').textContent =
+    `score: ${(anfis.score||0).toFixed(3)}  ·  conf: ${((anfis.confidence||0)*100).toFixed(0)}%`;
+  const domRule = anfis.dominant_rule;
+  document.getElementById('anfis-rule').textContent = domRule
+    ? `dominant rule: RSI ${domRule.rsi} · MACD ${domRule.macd_hist} · ATR ${domRule.atr}`
+    : (anfis.note || '');
+
+  // LLM suggestion
+  const llmShift = llm.fuzzy_shift || {};
+  document.getElementById('llm-mode-badge').textContent = (llm.mode||'demo').toUpperCase();
+  setTruncated('llm-action', llm.proposed_action, 70);
+  const sd = llmShift.score_delta || 0;
+  document.getElementById('llm-delta').textContent = (sd >= 0 ? '+' : '') + sd.toFixed(3);
+  document.getElementById('llm-delta').style.color = sd > 0 ? 'var(--semantic-buy)' : sd < 0 ? 'var(--semantic-sell)' : 'var(--white-soft)';
+  document.getElementById('llm-direction').textContent = (llmShift.direction||'—').replace(/_/g,' ');
+  document.getElementById('llm-conf').textContent = ((llm.confidence||0)*100).toFixed(0) + '%';
+  const pLog = llm.prompt_log || {};
+  document.getElementById('llm-system-prompt').textContent = pLog.system_prompt || (pLog.note || '(demo mode, nothing was sent)');
+  document.getElementById('llm-user-prompt').textContent = pLog.user_prompt || (pLog.note || '(demo mode, nothing was sent)');
+  document.getElementById('llm-raw-response').textContent = pLog.raw_response || (pLog.note || '(demo mode, nothing was sent)');
+
+  // Validation
+  const vStatus = val.status || '—';
+  const statusBadgeEl = document.getElementById('val-status-badge');
+  statusBadgeEl.textContent = vStatus;
+  statusBadgeEl.className = 'badge ' + (STATUS_BADGE[vStatus] || 'badge--idle');
+  document.getElementById('validation-panel').className = 'pipeline-stage' +
+    (vStatus === 'APPROVED' ? ' pipeline-stage--approved' :
+     vStatus === 'REJECTED' ? ' pipeline-stage--rejected' :
+     (vStatus === 'MODIFIED' || vStatus === 'NEEDS_REVIEW') ? ' pipeline-stage--modified' : '');
+  setTruncated('val-reason', val.reason, 70);
+  document.getElementById('val-violated').textContent =
+    (val.violated_rules||[]).length ? val.violated_rules.join(', ') : 'None';
+  document.getElementById('val-supporting').textContent =
+    (val.supporting_rules||[]).length ? val.supporting_rules.join(', ') : 'None';
+
+  // Final decision
+  document.getElementById('final-label').textContent = fin.label || '—';
+  document.getElementById('final-score-conf').textContent =
+    `${(fin.score||0).toFixed(3)}  /  ${((fin.confidence||0)*100).toFixed(0)}%`;
+
+  // Stability
+  const stab = d.stability_score || 0;
+  const stabPct = Math.round(stab * 100);
+  document.getElementById('stability-pct').textContent = stabPct + '%';
+  document.getElementById('stability-bar').style.width = stabPct + '%';
+  document.getElementById('stability-bar').style.background =
+    stabPct >= 70 ? 'var(--semantic-buy)' : stabPct >= 45 ? 'var(--gold-soft)' : 'var(--semantic-sell)';
+  document.getElementById('stability-badge').textContent =
+    `STABILITY ${stabPct}%`;
+  document.getElementById('stability-badge').className =
+    'badge ' + (stabPct >= 70 ? 'badge--synced' : stabPct >= 45 ? 'badge--processing' : 'badge--idle');
+
+  document.getElementById('reflection-note').textContent = d.reflection_note || '';
+}
+
+// Load Experience Log
+async function loadExperienceLog() {
+  try {
+    const resp = await fetch('/api/agentic/experience-log');
+    const entries = await resp.json();
+    if (!Array.isArray(entries)) return;
+    renderExperienceLog(entries);
+  } catch(e) { /* silent */ }
+}
+
+function renderExperienceLog(entries) {
+  const el = document.getElementById('experience-log-content');
+  document.getElementById('log-count-badge').textContent = entries.length + ' ENTRIES';
+  if (!entries.length) {
+    el.innerHTML = '<div class="body-sm">No entries yet.</div>';
+    return;
+  }
+  const sc = { APPROVED: 'var(--semantic-buy)', REJECTED: 'var(--semantic-sell)', MODIFIED: 'var(--semantic-warning)', NEEDS_REVIEW: 'var(--semantic-warning)' };
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  // two lines per entry; the reflection note is in the tooltip
+  el.innerHTML = entries.map(e => {
+    const val  = e.expert_validation_result || {};
+    const fin  = e.final_decision || {};
+    const ctx  = e.market_context || {};
+    const s    = val.status || '?';
+    const ts   = (e.timestamp || '').replace('T',' ').slice(0,19);
+    return `<div class="inner-card" style="padding:8px 10px;margin-bottom:6px;border-left:2px solid ${sc[s]||'var(--text-faint)'}" title="${esc(e.reflection_note || '')}">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span class="label-xs" style="text-transform:none">${ts}</span>
+        <span class="label-xs" style="color:${sc[s]||'var(--text-subtle)'};font-weight:700">${s}</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="label-xs" style="color:var(--gold-soft);text-transform:none">${ctx.symbol||'DEMO'}</span>
+        <span class="label-xs" style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${(ctx.market_regime||'').replace(/_/g,' ').toLowerCase()}</span>
+        <span class="label-sm" style="color:${labelColor(fin.label)};font-weight:700;margin-left:auto;white-space:nowrap">${fin.label||'—'}</span>
+        <span class="label-xs" style="white-space:nowrap">${Math.round((e.stability_score||0)*100)}% stable</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Load Failure Demo
+async function loadFailureDemo() {
+  try {
+    const resp = await fetch('/api/agentic/failure-demo');
+    const d    = await resp.json();
+    if (d.error) { alert(d.error); return; }
+    renderFailureDemo(d);
+    document.getElementById('failure-demo-panel').style.display = 'flex';
+    document.getElementById('failure-demo-panel').style.flexDirection = 'column';
+    document.getElementById('failure-demo-panel').style.gap = '14px';
+    document.getElementById('agentic-results').style.display = 'none';
+  } catch(e) {
+    alert('Failed to load failure demo: ' + e.message);
+  }
+}
+
+function renderFailureDemo(d) {
+  document.getElementById('fail-scenario-id').textContent = d.scenario_id || '—';
+  document.getElementById('fail-title').textContent = d.title || '—';
+  document.getElementById('fail-description').textContent = d.description || '—';
+
+  const llm = d.llm_suggestion || {};
+  document.getElementById('fail-llm-action').textContent = llm.proposed_action || '—';
+
+  const val = d.validation_result || {};
+  document.getElementById('fail-gate-status').textContent = val.status || 'REJECTED';
+  document.getElementById('fail-gate-reason').textContent = val.reason || '—';
+  document.getElementById('fail-violated').textContent =
+    'Violated: ' + (val.violated_rules||[]).join(', ');
+
+  const ref = d.reflection || {};
+  document.getElementById('fail-root-cause').textContent =
+    (ref.root_cause || '') + ' ' + (ref.corrective_principle || '');
+  document.getElementById('fail-lesson').textContent = 'Lesson: ' + (ref.lesson || '');
+}
+
+// Init
+function updateSourceHint() {
+  const ticker = localStorage.getItem('astdss:lastTicker');
+  const el = document.getElementById('agentic-source-hint');
+  el.textContent = ticker
+    ? `Using ${ticker} from the Dashboard (live data)`
+    : 'No ticker analysed on the Dashboard yet, so this runs on demo data';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadExperienceLog();
+  updateSourceHint();
+});
+</script>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    
+  </body>
+</html>

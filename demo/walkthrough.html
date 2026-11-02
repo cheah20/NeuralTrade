@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial · NeuralTrade</title>
+    <link rel="shortcut icon" href="data:,">
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+    
+  <style>.demo-strip{position:sticky;top:0;z-index:9999;padding:6px 12px;text-align:center;font:600 13px/1.4 system-ui,sans-serif;background:#fff4d6;color:#5c4400;border-bottom:1px solid #ecd9a0}.demo-strip a{color:#5c4400;text-decoration:underline}</style><script src="demo-data.js"></script><script src="demo-shim.js"></script></head>
+  <body><div class="demo-strip">Online demo with recorded data. AI reasoning and live news run in demo mode here (they need API keys). <a href="../">About this demo</a></div>
+    <div class="app-shell">
+      <!-- dark backdrop behind the menu on phones -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- side menu: hidden at the left edge, slides out on hover -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">NeuralTrade</div>
+          <div class="sidebar-subtitle">Fuzzy logic trading desk</div>
+        </div>
+
+        <nav class="nav-items">
+          <a
+            href="index.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Dashboard
+            <kbd>1</kbd>
+          </a>
+          <a
+            href="market-intelligence.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v9l5 3" />
+            </svg>
+            Market Intelligence
+            <kbd>2</kbd>
+          </a>
+          <a
+            href="decision-logic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M17.66 6.34l-1.41 1.41M6.34 17.66l-1.41 1.41"
+              />
+            </svg>
+            Decision Logic
+            <kbd>3</kbd>
+          </a>
+          <a
+            href="backtesting.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Backtesting
+            <kbd>4</kbd>
+          </a>
+          <a
+            href="agentic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+              <circle cx="12" cy="12" r="7" stroke-dasharray="2 2"/>
+            </svg>
+            Agentic Layer
+            <kbd>5</kbd>
+          </a>
+          <a
+            href="walkthrough.html"
+            class="nav-item active"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 12l9 5 9-5"/>
+              <path d="M3 17l9 5 9-5"/>
+            </svg>
+            Tutorial
+            <kbd>6</kbd>
+          </a>
+          <a
+            href="settings.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.14 12.94a7 7 0 0 0 .07-.94 7 7 0 0 0-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.41l-.36 2.54a7 7 0 0 0-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.63 8.47a.49.49 0 0 0 .12.64l2.03 1.58a7 7 0 0 0-.07.94c0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.49.41h4c.25 0 .45-.17.49-.41l.36-2.54a7 7 0 0 0 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.64z"
+              />
+            </svg>
+            Settings
+            <kbd>7</kbd>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="sidebar-hint">Press 1–7 to switch pages.</p>
+          <button class="btn-execute" id="btn-execute-trade">
+            <svg
+              style="width: 15px; height: 15px; fill: currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Execute Trade
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation" title="Menu">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="topbar-logo">NeuralTrade<small>Tutorial</small></div>
+            
+            <div class="topbar-status">
+              <span class="status-dot"></span>
+              Market data live
+            </div>
+            
+          </div>
+
+          
+          <div class="topbar-right">
+            <span class="topbar-clock" id="topbar-clock">--:--:--</span>
+            <button class="btn-avatar" title="User">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--gold-soft); fill: none; stroke-width: 1.5">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-2.667 3.582-4 8-4s8 1.333 8 4" />
+              </svg>
+            </button>
+          </div>
+          
+        </header>
+
+        <div class="page-scroll">
+          <div class="page-layout">
+<div style="display:flex;flex-direction:column;gap:14px;max-width:880px;margin:0 auto;padding:2px 0">
+
+  <!-- Intro -->
+  <div class="glass-panel glass-panel--gold">
+    <div style="font:600 15px 'Roboto', sans-serif;color:var(--white-soft);margin-bottom:6px">How the agentic pipeline works</div>
+    <div style="font-family:var(--font-mono);font-size:10px;color:rgba(20, 26, 34, 0.5);line-height:1.7">
+      Same pipeline as the <b style="color:var(--gold-soft)">Agentic Layer</b> page
+      (<code style="color:var(--secondary)">/api/agentic/analyze</code>), shown <b style="color:var(--gold-soft)">one stage at a time</b>
+      with a short note on what each stage does. Keep one thing in mind:
+      <b style="color:var(--gold-soft)">the LLM can only suggest. The knowledge base makes the call.</b>
+    </div>
+  </div>
+
+  <!-- Setup Panel -->
+  <div id="setup-panel" class="glass-panel glass-panel--inset">
+    <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);text-transform:uppercase;margin-bottom:12px">1 · Choose LLM mode</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button id="mode-demo-btn" class="wt-toggle wt-toggle--active" onclick="setMode('demo')">
+        Demo: fixed scenarios, works offline
+      </button>
+      <button id="mode-real-btn" class="wt-toggle" onclick="setMode('real')">
+        Real: asks DeepSeek (uses demo if .env has no key)
+      </button>
+    </div>
+
+    <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);text-transform:uppercase;margin-bottom:12px">2 · Choose market data source</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button id="src-sim-btn" class="wt-toggle wt-toggle--active" onclick="setSource('sim')">
+        Simulated: random market snapshot
+      </button>
+      <button id="src-manual-btn" class="wt-toggle" onclick="setSource('manual')">
+        Manual: type in RSI, MACD, ATR and sentiment
+      </button>
+    </div>
+
+    <div id="manual-inputs" style="display:none;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:16px">
+      <div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">RSI (0-100)</div>
+        <input id="in-rsi" type="number" class="glass-input" value="50" style="width:100%">
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">MACD hist</div>
+        <input id="in-macd" type="number" step="0.01" class="glass-input" value="0" style="width:100%">
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">ATR (0-10)</div>
+        <input id="in-atr" type="number" step="0.1" class="glass-input" value="3" style="width:100%">
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">SENTIMENT (-1 to 1)</div>
+        <input id="in-sent" type="number" step="0.05" class="glass-input" value="0" style="width:100%">
+      </div>
+    </div>
+
+    <button id="start-btn" class="btn-execute" style="width:100%;padding:11px;font-size:11px" onclick="startWalkthrough()">
+      <svg style="width:13px;height:13px;fill:currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      Start Tutorial
+    </button>
+    <div id="setup-error" style="display:none;margin-top:8px;font-family:var(--font-mono);font-size:var(--text-xs);color:var(--strong-sell)"></div>
+  </div>
+
+  <!-- Step Viewer (hidden until started) -->
+  <div id="step-viewer" style="display:none">
+
+    <!-- Progress -->
+    <div class="glass-panel" style="padding:12px 16px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span id="step-progress-label" style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45)">Step 1 of 10</span>
+        <span id="step-nature-badge" class="badge badge--idle" style="font-size:var(--text-xs)">—</span>
+      </div>
+      <div class="progress-bar" style="height:4px">
+        <div id="step-progress-bar" class="progress-bar__fill glow-bar" style="width:10%;background:var(--gold-soft)"></div>
+      </div>
+    </div>
+
+    <!-- Step Content -->
+    <div class="glass-panel glass-panel--gold" style="min-height:220px">
+      <div id="step-title" style="font:700 16px 'Roboto', sans-serif;color:var(--gold-soft);margin-bottom:8px">—</div>
+      <div id="step-explain" style="font-family:var(--font-mono);font-size:10px;color:rgba(20, 26, 34, 0.55);line-height:1.7;margin-bottom:16px">—</div>
+      <div id="step-data"></div>
+    </div>
+
+    <!-- Nav buttons -->
+    <div style="display:flex;justify-content:space-between;margin-top:14px">
+      <button id="prev-btn" class="btn-icon" style="padding:9px 18px;font-family:var(--font-mono);font-size:10px" onclick="prevStep()">← Prev</button>
+      <button id="restart-btn" class="btn-icon" style="padding:9px 18px;font-family:var(--font-mono);font-size:10px;color:rgba(20, 26, 34, 0.45)" onclick="restartWalkthrough()">Restart</button>
+      <button id="next-btn" class="btn-execute" style="padding:9px 18px;font-size:10px" onclick="nextStep()">Next →</button>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .wt-toggle {
+    flex: 1;
+    padding: 10px 12px;
+    background: rgba(20, 26, 34, 0.03);
+    border: 1px solid rgba(20, 26, 34, 0.08);
+    border-radius: var(--radius-md);
+    color: rgba(20, 26, 34, 0.45);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-align: left;
+    cursor: pointer;
+    line-height: 1.5;
+  }
+  .wt-toggle--active {
+    border-color: rgba(217, 138, 0, 0.4);
+    background: rgba(217, 138, 0, 0.07);
+    color: var(--gold-soft);
+  }
+</style>
+
+<script>
+let MODE = 'demo';
+let SOURCE = 'sim';
+let RESULT = null;
+let STEP = 1;
+const TOTAL_STEPS = 10;
+
+// stages stay neutral; colour is only for buy, sell, warning and the current step
+const LABEL_COLORS = {
+  'Strong Buy': 'var(--semantic-buy)', 'Buy': 'var(--semantic-buy)', 'Hold': 'var(--white-soft)',
+  'Sell': 'var(--semantic-sell)', 'Strong Sell': 'var(--semantic-sell)',
+};
+const STATUS_COLOR = {
+  APPROVED: 'var(--semantic-buy)', REJECTED: 'var(--semantic-sell)',
+  MODIFIED: 'var(--semantic-warning)', NEEDS_REVIEW: 'var(--semantic-warning)',
+};
+function labelColor(l) { return LABEL_COLORS[l] || 'var(--white-soft)'; }
+
+function chip(label, value, color) {
+  return `<div class="inner-card" style="padding:7px 11px;display:inline-flex;flex-direction:column;align-items:center;gap:2px;margin:0 6px 6px 0">
+    <span class="label-xs">${label}</span>
+    <span class="data-value" style="color:${color}">${value}</span>
+  </div>`;
+}
+
+function box(title, html, accent) {
+  return `<div class="evidence-box" style="${accent ? `border-left-color:${accent}` : ''}">
+    <div class="label-xs" style="${accent ? `color:${accent}` : ''};margin-bottom:5px">${title}</div>
+    ${html}
+  </div>`;
+}
+
+function setMode(m) {
+  MODE = m;
+  document.getElementById('mode-demo-btn').className = 'wt-toggle' + (m === 'demo' ? ' wt-toggle--active' : '');
+  document.getElementById('mode-real-btn').className = 'wt-toggle' + (m === 'real' ? ' wt-toggle--active' : '');
+}
+function setSource(s) {
+  SOURCE = s;
+  document.getElementById('src-sim-btn').className = 'wt-toggle' + (s === 'sim' ? ' wt-toggle--active' : '');
+  document.getElementById('src-manual-btn').className = 'wt-toggle' + (s === 'manual' ? ' wt-toggle--active' : '');
+  document.getElementById('manual-inputs').style.display = s === 'manual' ? 'grid' : 'none';
+}
+
+async function startWalkthrough() {
+  const btn = document.getElementById('start-btn');
+  const errEl = document.getElementById('setup-error');
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Running pipeline…';
+  try {
+    let url = `/api/agentic/analyze?symbol=WALKTHROUGH&demo=${MODE === 'demo'}`;
+    if (SOURCE === 'manual') {
+      url += `&rsi=${document.getElementById('in-rsi').value}`;
+      url += `&macd_hist=${document.getElementById('in-macd').value}`;
+      url += `&atr=${document.getElementById('in-atr').value}`;
+      url += `&sentiment=${document.getElementById('in-sent').value}`;
+    }
+    const resp = await fetch(url);
+    const d = await resp.json();
+    if (d.error) { throw new Error(d.error); }
+    RESULT = d;
+    STEP = 1;
+    document.getElementById('setup-panel').style.display = 'none';
+    document.getElementById('step-viewer').style.display = 'block';
+    renderStep();
+  } catch (e) {
+    errEl.textContent = 'Failed to run pipeline: ' + e.message;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg style="width:13px;height:13px;fill:currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> Start Tutorial';
+  }
+}
+
+function restartWalkthrough() {
+  RESULT = null;
+  STEP = 1;
+  document.getElementById('setup-panel').style.display = 'block';
+  document.getElementById('step-viewer').style.display = 'none';
+}
+
+function nextStep() { if (STEP < TOTAL_STEPS) { STEP++; renderStep(); } }
+function prevStep() { if (STEP > 1) { STEP--; renderStep(); } }
+
+function renderStep() {
+  const d = RESULT;
+  const ctx = d.market_context || {};
+  const bl  = d.baseline_result || {};
+  const ex  = d.expert_result || {};
+  const llm = d.llm_suggestion || {};
+  const val = d.validation_result || {};
+  const fin = d.final_decision || {};
+  const sft = val.applied_shift || {};
+
+  document.getElementById('step-progress-label').textContent = `STEP ${STEP} OF ${TOTAL_STEPS}`;
+  document.getElementById('step-progress-bar').style.width = (STEP / TOTAL_STEPS * 100) + '%';
+  document.getElementById('prev-btn').style.visibility = STEP === 1 ? 'hidden' : 'visible';
+  document.getElementById('next-btn').style.display = STEP === TOTAL_STEPS ? 'none' : 'inline-block';
+
+  const set = (badge, badgeClass, title, explain, dataHtml) => {
+    const b = document.getElementById('step-nature-badge');
+    b.textContent = badge;
+    b.className = 'badge ' + badgeClass;
+    document.getElementById('step-title').textContent = title;
+    document.getElementById('step-explain').innerHTML = explain;
+    document.getElementById('step-data').innerHTML = dataHtml;
+  };
+
+  if (STEP === 1) {
+    set('REAL MATH', 'badge--idle', '1. Market Data',
+      `Source: <code style="color:var(--secondary)">Trading_Data.get_simulated_market_snapshot()</code> or your manual values.
+       ${SOURCE === 'sim' ? 'The price series is made up, but RSI, MACD and ATR are worked out from it with the normal formulas.' : 'You entered these values directly.'}`,
+      chip('RSI', (ctx.rsi||0).toFixed(2), ctx.rsi > 65 ? 'var(--strong-sell)' : ctx.rsi < 35 ? 'var(--synced-green)' : 'var(--white-soft)') +
+      chip('MACD HIST', (ctx.macd_hist||0).toFixed(3), ctx.macd_hist > 0 ? 'var(--semantic-buy)' : 'var(--semantic-sell)') +
+      chip('ATR', (ctx.atr||0).toFixed(2), ctx.atr > 6 ? 'var(--strong-sell)' : 'var(--white-soft)') +
+      chip('SENTIMENT', (ctx.sentiment||0).toFixed(3), ctx.sentiment > 0 ? 'var(--semantic-buy)' : 'var(--semantic-sell)') +
+      chip('PRICE', (ctx.price||0).toFixed(2), 'var(--white-soft)')
+    );
+  } else if (STEP === 2) {
+    set('REAL MATH', 'badge--idle', '2. Baseline Fuzzy Logic',
+      `<code style="color:var(--secondary)">tools.baseline_fuzzy_tool()</code> → the original Mamdani fuzzy_engine.py.
+       Every indicator counts the same here. No expert masking yet.`,
+      `<div style="display:flex;align-items:center;gap:20px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">LABEL</div>
+          <div style="font:700 22px 'Roboto', sans-serif;color:${labelColor(bl.label)}">${bl.label||'—'}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">SCORE</div>
+          <div style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--white-soft)">${(bl.score||0).toFixed(3)}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">CONFIDENCE</div>
+          <div style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--white-soft)">${((bl.confidence||0)*100).toFixed(0)}%</div>
+        </div>
+      </div>`
+    );
+  } else if (STEP === 3) {
+    const regime = ctx.market_regime || 'NORMAL';
+    set('REAL MATH', 'badge--idle', '3. Expert Fuzzy Logic',
+      `<code style="color:var(--secondary)">tools.fuzzy_analysis_tool(mode='expert')</code> uses the same engine, but it first works out the
+       market regime and re-weights or masks indicators (<code style="color:var(--secondary)">feature_selector.py</code>).
+       Any difference from step 2 comes <b style="color:var(--gold-soft)">only</b> from that masking. The LLM is not involved yet.`,
+      `<div style="display:flex;align-items:center;gap:20px;margin-bottom:12px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">LABEL</div>
+          <div style="font:700 22px 'Roboto', sans-serif;color:${labelColor(ex.label)}">${ex.label||'—'}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">SCORE</div>
+          <div style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--white-soft)">${(ex.score||0).toFixed(3)}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">CONFIDENCE</div>
+          <div style="font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--white-soft)">${((ex.confidence||0)*100).toFixed(0)}%</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">REGIME</div>
+          <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--gold-soft)">${regime.replace(/_/g,' ')}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px">
+        <div style="flex:1">
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--synced-green);margin-bottom:4px">ACTIVE FEATURES</div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.5)">${(ex.active_features||[]).join(', ') || 'none'}</div>
+        </div>
+        <div style="flex:1">
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--strong-sell);margin-bottom:4px">MASKED FEATURES</div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.5)">${(ex.masked_features||[]).join(', ') || 'none'}</div>
+        </div>
+      </div>`
+    );
+  } else if (STEP === 4) {
+    set('DATA PACKAGING', 'badge--idle', '4. Market Context Assembly',
+      `A plain dict built from steps 1 to 3, nothing is calculated here. It is the
+       <b style="color:var(--gold-soft)">only</b> thing the LLM sees in step 5. It never sees the price history.`,
+      `<pre style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.5);background:rgba(16, 24, 40, 0.07);padding:12px;border-radius:var(--radius-md);overflow-x:auto;line-height:1.6">${JSON.stringify(ctx, null, 2)}</pre>`
+    );
+  } else if (STEP === 5) {
+    const sd = (llm.fuzzy_shift||{}).score_delta || 0;
+    set(d.demo_mode ? 'DEMO LOGIC' : 'LLM CALL', d.demo_mode ? 'badge--idle' : 'badge--processing', '5. LLM Reasoning',
+      d.demo_mode
+        ? `Demo mode: a fixed scenario was picked from the market context
+           (<code style="color:var(--secondary)">llm_reasoning._select_demo_scenario</code>). Nothing was sent over the network.`
+        : `Real mode: DeepSeek (<code style="color:var(--secondary)">deepseek-chat</code>) was called with the step 4 context.
+           If that call fails, the page quietly uses the demo answer instead, so a missing LLM never breaks the run.`,
+      box('PROPOSED ACTION', `<div class="body-sm">${llm.proposed_action||'—'}</div>`) +
+      box('REASONING', `<div class="body-sm">${llm.reason||'—'}</div>`) +
+      chip('SCORE Δ', (sd>=0?'+':'')+sd.toFixed(3), sd>0?'var(--semantic-buy)':sd<0?'var(--semantic-sell)':'var(--white-soft)') +
+      chip('DIRECTION', ((llm.fuzzy_shift||{}).direction||'—').replace(/_/g,' '), 'var(--white-soft)') +
+      chip('LLM CONFIDENCE', ((llm.confidence||0)*100).toFixed(0)+'%', 'var(--white-soft)') +
+      chip('SCENARIO TAG', llm.scenario_tag||'—', 'var(--white-soft)') +
+      `<div class="evidence-box evidence-box--gold" style="margin-top:10px;margin-bottom:0">
+        <span class="label-xs" style="text-transform:none;color:var(--gold-soft)">This is only a suggestion. Nothing changes until it passes the validation gate in the next step.</span>
+      </div>`
+    );
+  } else if (STEP === 6) {
+    const statusColor = STATUS_COLOR[val.status] || 'rgba(20, 26, 34, 0.45)';
+    set('RULE CHECK', 'badge--synced', '6. Human Expert Validation Gate',
+      `<code style="color:var(--secondary)">expert_validation_gate.validate_llm_suggestion()</code> checks the step 5 suggestion against
+       the 16 fixed rules in <code style="color:var(--secondary)">human_expert_kb.py</code>.
+       <b style="color:var(--gold-soft)">No LLM is called here.</b>`,
+      `<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font:700 20px 'Roboto', sans-serif;color:${statusColor}">${val.status||'—'}</span>
+      </div>` +
+      box('REASON', `<div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.5);line-height:1.7">${val.reason||'—'}</div>`, statusColor) +
+      `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--strong-sell);margin-bottom:4px">VIOLATED RULES</div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.5)">${(val.violated_rules||[]).join(', ')||'None'}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--synced-green);margin-bottom:4px">SUPPORTING RULES</div>
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.5)">${(val.supporting_rules||[]).join(', ')||'None'}</div>
+        </div>
+      </div>` +
+      `<div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);line-height:1.8">
+        APPROVED: use all of it &nbsp;·&nbsp; MODIFIED: use half &nbsp;·&nbsp; REJECTED: use none &nbsp;·&nbsp; NEEDS_REVIEW: use none and flag it
+      </div>`
+    );
+  } else if (STEP === 7) {
+    set('ARITHMETIC', 'badge--idle', '7. Apply Shift',
+      `Plain addition. Step 6 already decided how much of the suggestion is used: none, half or all of it.`,
+      `<div style="font-family:var(--font-mono);font-size:10px;color:rgba(20, 26, 34, 0.5);line-height:2.2">
+        final_score &nbsp;=&nbsp; expert_score (${(ex.score||0).toFixed(3)}) + applied_delta (${(sft.score_delta||0).toFixed(3)})<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp; <b style="color:${labelColor(fin.label)};font-size:13px">${(fin.score||0).toFixed(3)} → ${fin.label}</b><br><br>
+        final_confidence &nbsp;=&nbsp; expert_confidence (${((ex.confidence||0)).toFixed(2)}) + applied_delta (${(sft.confidence_delta||0).toFixed(3)})<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp; <b style="color:var(--white-soft);font-size:13px">${((fin.confidence||0)*100).toFixed(0)}%</b>
+      </div>`
+    );
+  } else if (STEP === 8) {
+    const stab = d.stability_score || 0;
+    const stabPct = Math.round(stab*100);
+    set('FORMULA', 'badge--idle', '8. Stability Score',
+      `A score from 0 to 1 for how consistent this run was. It is just a formula.`,
+      `<div style="font-family:var(--font-mono);font-size:10px;color:rgba(20, 26, 34, 0.5);line-height:2.2;margin-bottom:12px">
+        stability &nbsp;=&nbsp; expert_confidence + validation_adjustment(${val.status}) - conflict_penalty(${d.indicator_conflict})<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp; <b style="color:var(--gold-soft);font-size:14px">${stab.toFixed(3)}</b> &nbsp;(clamped to [0,1])
+      </div>
+      <div class="progress-bar" style="height:6px">
+        <div class="progress-bar__fill glow-bar" style="width:${stabPct}%;background:${stabPct>=70?'var(--synced-green)':stabPct>=45?'var(--gold-soft)':'var(--strong-sell)'}"></div>
+      </div>`
+    );
+  } else if (STEP === 9) {
+    set('FILE WRITE', 'badge--idle', '9. Experience Log',
+      `<code style="color:var(--secondary)">memory_log.append_experience_log()</code> adds every run, this one too, to
+       <code style="color:var(--secondary)">data/experience_log.json</code>. You can find it again on the
+       Agentic Layer page and under "Recent agentic decisions" on the Backtesting page.`,
+      box('REFLECTION NOTE', `<div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.5);line-height:1.7">${d.reflection_note||'—'}</div>`, 'var(--gold-soft)')
+    );
+  } else if (STEP === 10) {
+    set('SUMMARY', 'badge--synced', '10. Final Decision Summary', `That is the whole run. Here is how the decision changed at each stage:`,
+      `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px">
+        <div style="padding:10px;background:rgba(16, 24, 40, 0.063);border-radius:var(--radius-md);text-align:center">
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">BASELINE</div>
+          <div style="font:700 14px 'Roboto', sans-serif;color:${labelColor(bl.label)}">${bl.label}</div>
+        </div>
+        <div style="padding:10px;background:rgba(16, 24, 40, 0.063);border-radius:var(--radius-md);text-align:center">
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);margin-bottom:4px">EXPERT</div>
+          <div style="font:700 14px 'Roboto', sans-serif;color:${labelColor(ex.label)}">${ex.label}</div>
+        </div>
+        <div style="padding:10px;background:rgba(217, 138, 0, 0.08);border:1px solid rgba(217, 138, 0, 0.2);border-radius:var(--radius-md);text-align:center">
+          <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--gold-soft);margin-bottom:4px">FINAL (AGENTIC)</div>
+          <div style="font:700 14px 'Roboto', sans-serif;color:${labelColor(fin.label)}">${fin.label}</div>
+        </div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:var(--text-xs);color:rgba(20, 26, 34, 0.45);line-height:1.8;margin-bottom:14px">
+        Gate verdict: <b style="color:${STATUS_COLOR[val.status]}">${val.status}</b> &nbsp;·&nbsp;
+        Stability: <b style="color:var(--gold-soft)">${Math.round((d.stability_score||0)*100)}%</b>
+      </div>
+      <div style="display:flex;gap:10px">
+        <a href="agentic.html" class="btn-icon" style="padding:9px 16px;font-family:var(--font-mono);font-size:10px;text-decoration:none">Open Agentic Layer →</a>
+        <a href="backtesting.html" class="btn-icon" style="padding:9px 16px;font-family:var(--font-mono);font-size:10px;text-decoration:none">Open Backtesting →</a>
+      </div>`
+    );
+  }
+}
+</script>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    
+  </body>
+</html>

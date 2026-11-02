@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard · NeuralTrade</title>
+    <link rel="shortcut icon" href="data:,">
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+    
+  <style>.demo-strip{position:sticky;top:0;z-index:9999;padding:6px 12px;text-align:center;font:600 13px/1.4 system-ui,sans-serif;background:#fff4d6;color:#5c4400;border-bottom:1px solid #ecd9a0}.demo-strip a{color:#5c4400;text-decoration:underline}</style><script src="demo-data.js"></script><script src="demo-shim.js"></script></head>
+  <body><div class="demo-strip">Online demo with recorded data. AI reasoning and live news run in demo mode here (they need API keys). <a href="../">About this demo</a></div>
+    <div class="app-shell">
+      <!-- dark backdrop behind the menu on phones -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- side menu: hidden at the left edge, slides out on hover -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">NeuralTrade</div>
+          <div class="sidebar-subtitle">Fuzzy logic trading desk</div>
+        </div>
+
+        <nav class="nav-items">
+          <a
+            href="index.html"
+            class="nav-item active"
+          >
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Dashboard
+            <kbd>1</kbd>
+          </a>
+          <a
+            href="market-intelligence.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v9l5 3" />
+            </svg>
+            Market Intelligence
+            <kbd>2</kbd>
+          </a>
+          <a
+            href="decision-logic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M17.66 6.34l-1.41 1.41M6.34 17.66l-1.41 1.41"
+              />
+            </svg>
+            Decision Logic
+            <kbd>3</kbd>
+          </a>
+          <a
+            href="backtesting.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Backtesting
+            <kbd>4</kbd>
+          </a>
+          <a
+            href="agentic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+              <circle cx="12" cy="12" r="7" stroke-dasharray="2 2"/>
+            </svg>
+            Agentic Layer
+            <kbd>5</kbd>
+          </a>
+          <a
+            href="walkthrough.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 12l9 5 9-5"/>
+              <path d="M3 17l9 5 9-5"/>
+            </svg>
+            Tutorial
+            <kbd>6</kbd>
+          </a>
+          <a
+            href="settings.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.14 12.94a7 7 0 0 0 .07-.94 7 7 0 0 0-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.41l-.36 2.54a7 7 0 0 0-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.63 8.47a.49.49 0 0 0 .12.64l2.03 1.58a7 7 0 0 0-.07.94c0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.49.41h4c.25 0 .45-.17.49-.41l.36-2.54a7 7 0 0 0 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.64z"
+              />
+            </svg>
+            Settings
+            <kbd>7</kbd>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="sidebar-hint">Press 1–7 to switch pages.</p>
+          <button class="btn-execute" id="btn-execute-trade">
+            <svg
+              style="width: 15px; height: 15px; fill: currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Execute Trade
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation" title="Menu">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="topbar-logo">NeuralTrade<small>Dashboard</small></div>
+            
+            <div class="topbar-status">
+              <span class="status-dot"></span>
+              Market data live
+            </div>
+            
+          </div>
+
+          
+          <div class="topbar-right">
+            <span class="topbar-clock" id="topbar-clock">--:--:--</span>
+            <button class="btn-avatar" title="User">
+              <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; stroke: var(--gold-soft); fill: none; stroke-width: 1.5">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-2.667 3.582-4 8-4s8 1.333 8 4" />
+              </svg>
+            </button>
+          </div>
+          
+        </header>
+
+        <div class="page-scroll">
+          <div class="page-layout">
+
+
+<div class="desk">
+
+  <!-- watchlist + search -->
+  <section class="desk-panel">
+    <div class="desk-head"><strong>Watchlist</strong><span>Click to analyse</span></div>
+    <div class="desk-search">
+      <input id="ticker-input" class="glass-input" type="text" placeholder="Ticker" autocomplete="off" spellcheck="false" />
+      <button id="analyze-btn" class="btn-primary">Analyze</button>
+    </div>
+    <div id="analyze-status" class="desk-status"></div>
+    
+    <button class="watch-row" data-ticker="BTC">
+      <span><span class="watch-row__sym">BTC</span><br><span class="watch-row__name">Bitcoin</span></span>
+      <span class="watch-row__go">Analyse ›</span>
+    </button>
+    
+    <button class="watch-row" data-ticker="ETH">
+      <span><span class="watch-row__sym">ETH</span><br><span class="watch-row__name">Ethereum</span></span>
+      <span class="watch-row__go">Analyse ›</span>
+    </button>
+    
+    <button class="watch-row" data-ticker="AAPL">
+      <span><span class="watch-row__sym">AAPL</span><br><span class="watch-row__name">Apple</span></span>
+      <span class="watch-row__go">Analyse ›</span>
+    </button>
+    
+    <button class="watch-row" data-ticker="TSLA">
+      <span><span class="watch-row__sym">TSLA</span><br><span class="watch-row__name">Tesla</span></span>
+      <span class="watch-row__go">Analyse ›</span>
+    </button>
+    
+    <button class="watch-row" data-ticker="MSFT">
+      <span><span class="watch-row__sym">MSFT</span><br><span class="watch-row__name">Microsoft</span></span>
+      <span class="watch-row__go">Analyse ›</span>
+    </button>
+    
+    <button class="watch-row" data-ticker="NVDA">
+      <span><span class="watch-row__sym">NVDA</span><br><span class="watch-row__name">Nvidia</span></span>
+      <span class="watch-row__go">Analyse ›</span>
+    </button>
+    
+    <div class="desk-head" style="margin-top:auto;border-top:1px solid var(--panel-border);border-bottom:0;">
+      <span>Agents online</span>
+      <strong>4/4</strong>
+    </div>
+  </section>
+
+  <!-- price chart -->
+  <section class="desk-panel">
+    <div class="desk-head">
+      <div class="chart-legend">
+        <span><i style="background:var(--semantic-buy)"></i>Up day</span>
+        <span><i style="background:var(--semantic-sell)"></i>Down day</span>
+        <span><i style="background:#f0a020"></i>MA 20</span>
+      </div>
+      <span>Daily · 3 months</span>
+    </div>
+    <div class="desk-chart-body">
+      <div class="price-hud">
+        <div class="price-hud__pair" id="live-ticker-label">BTC/USDT</div>
+        <div class="price-hud__price" id="live-price">64,316.96</div>
+        <div class="price-hud__meta">
+          <span>RSI <b id="live-rsi">52.9</b></span>
+          <span id="live-atr">ATR 3.75</span>
+          <span id="live-source">Live</span>
+        </div>
+      </div>
+      <div class="dashboard-chart-area" id="live-chart-container">
+        <div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-subtle);font-size:13px;">Pick a ticker on the left to load its chart</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- decision -->
+  <section class="desk-panel">
+    <div class="desk-head"><strong>Decision</strong><span id="dash-regime-badge">Normal Market</span></div>
+    <div class="decision-signal">
+      <div class="decision-signal__label">Expert signal</div>
+      <div class="decision-signal__value" id="live-signal" style="color:var(--semantic-buy)">Buy</div>
+      <div class="decision-signal__regime" id="live-regime">Normal Market</div>
+      
+      <div class="decision-meter"><span class="decision-meter__pin" id="decision-pin" style="left:71.1%"></span></div>
+      <div class="decision-scale"><span>Strong sell</span><span>Hold</span><span>Strong buy</span></div>
+      <div class="decision-score">
+        Aggregate <b id="agg-signal">BUY</b>
+        <span id="agg-score">score +0.845</span>
+      </div>
+    </div>
+
+    <div id="dash-inputs">
+    
+    
+    <div class="input-row">
+      <div class="input-row__top">
+        <span class="input-row__name">RSI</span>
+        <span class="input-row__val" style="color:#141a22">52.9</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" style="width:52%;background:#141a22;opacity:1;"></div>
+      </div>
+    </div>
+    
+    <div class="input-row">
+      <div class="input-row__top">
+        <span class="input-row__name">MACD histogram</span>
+        <span class="input-row__val" style="color:#12a46b">+2.376</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" style="width:73%;background:#12a46b;opacity:1;"></div>
+      </div>
+    </div>
+    
+    <div class="input-row">
+      <div class="input-row__top">
+        <span class="input-row__name">Sentiment</span>
+        <span class="input-row__val" style="color:#12a46b">+0.15</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" style="width:57%;background:#12a46b;opacity:1;"></div>
+      </div>
+    </div>
+    
+    <div class="input-row is-masked">
+      <div class="input-row__top">
+        <span class="input-row__name">ATR (volatility) · Masked</span>
+        <span class="input-row__val" style="color:rgba(20, 26, 34, 0.18)">3.75</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" style="width:37%;background:rgba(20, 26, 34, 0.18);opacity:0.35;"></div>
+      </div>
+    </div>
+    
+    
+    </div>
+
+    <div class="decision-actions">
+      <button id="btn-pause" class="btn-secondary">Pause system</button>
+      <button id="btn-override" class="btn-danger">Override</button>
+    </div>
+  </section>
+
+  <!-- bottom tabs -->
+  <section class="desk-panel desk-bottom">
+    <div class="desk-tabs" role="tablist">
+      <button class="desk-tab is-on" data-desk-tab="reasoning">Expert reasoning</button>
+      <button class="desk-tab" data-desk-tab="pipeline">Agent pipeline</button>
+      <button class="desk-tab" data-desk-tab="log">System log</button>
+    </div>
+
+    <div class="desk-pane" data-desk-pane="reasoning">
+      
+      <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:16px;align-items:start;font-size:12px;">
+        <div>
+          <div class="section-header__title" style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">EXPERT REASONING</div>
+          <div style="color:var(--text-main);" id="dash-rule">RULE_6_NORMAL</div>
+          <div style="color:var(--text-muted);margin-top:2px;">Regime confidence <span id="dash-conf">70</span>%</div>
+        </div>
+        <div>
+          <div style="color:var(--text-muted);margin-bottom:6px;">Inputs used</div>
+          <div id="dash-active"><span class="badge badge--synced" style="margin:0 4px 4px 0;">sentiment</span><span class="badge badge--synced" style="margin:0 4px 4px 0;">rsi</span><span class="badge badge--synced" style="margin:0 4px 4px 0;">macd_hist</span>
+          </div>
+        </div>
+        <div>
+          <div style="color:var(--text-muted);margin-bottom:6px;">Masked</div>
+          <div id="dash-masked"><span class="badge badge--idle" style="margin:0 4px 4px 0;">atr</span>
+          </div>
+        </div>
+        <div>
+          <div style="color:var(--text-muted);margin-bottom:6px;">FLC signal</div>
+          <span id="dash-flc"><b style="color:var(--semantic-buy);">Buy</b>
+          <span style="color:var(--text-muted);">(+0.84)</span></span>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="desk-pane" data-desk-pane="pipeline" hidden>
+      <div class="pipeline-row">
+        
+        <div class="agent-card">
+          <div class="agent-card__header">
+            <div>
+              <div class="agent-card__name">Daily Data</div>
+              <div class="agent-card__source">Binance WS</div>
+            </div>
+            <div class="badge badge--synced">Synced</div>
+          </div>
+        </div>
+        
+        <div class="agent-card">
+          <div class="agent-card__header">
+            <div>
+              <div class="agent-card__name">Perception</div>
+              <div class="agent-card__source">Model-VT Market</div>
+            </div>
+            <div class="badge badge--idle">Idle</div>
+          </div>
+        </div>
+        
+        <div class="agent-card">
+          <div class="agent-card__header">
+            <div>
+              <div class="agent-card__name">Cognition</div>
+              <div class="agent-card__source">Fuzzy Logic Synthesis</div>
+            </div>
+            <div class="badge badge--processing">Processing</div>
+          </div>
+        </div>
+        
+        <div class="agent-card">
+          <div class="agent-card__header">
+            <div>
+              <div class="agent-card__name">Execution</div>
+              <div class="agent-card__source">ArKey Active</div>
+            </div>
+            <div class="badge badge--idle">Waiting</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="desk-pane" data-desk-pane="log" hidden>
+      <div class="log-stream">
+        <div><span class="log-stream__time">13:16</span> Pipeline started</div>
+        <div><span class="log-stream__time">14:06</span> RSI crossed its threshold</div>
+        <div><span class="log-stream__time">14:33</span> Signal sent: SELL</div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    
+  </body>
+</html>

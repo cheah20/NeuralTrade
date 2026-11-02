@@ -1,0 +1,127 @@
+/* Animations and small visual effects. */
+
+/* keep the top bar on its own layer */
+
+.topbar {
+  transform: translateZ(0);
+}
+
+/* background layer */
+
+body {
+  /* plain page background, no photo */
+  background: var(--bg-main);
+}
+
+/* glow effects */
+.glow-gold {
+  box-shadow: 0 0 28px rgba(20, 26, 34, 0.162);
+}
+
+.glow-red {
+  text-shadow: 0 0 20px rgba(229, 68, 59, 0.35);
+}
+
+.glow-green {
+  text-shadow: 0 0 12px rgba(18, 164, 107, 0.25);
+}
+
+/* pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.95;
+    box-shadow: 0 0 0 0 rgba(18, 164, 107, 0.25);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 3px rgba(18, 164, 107, 0.0);
+  }
+}
+
+.pulse {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse-amber {
+  0%, 100% {
+    opacity: 0.95;
+    box-shadow: 0 0 0 0 rgba(217, 138, 0, 0.25);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 3px rgba(217, 138, 0, 0.0);
+  }
+}
+
+.pulse-amber {
+  animation: pulse-amber 2s ease-in-out infinite;
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* stagger children */
+.stagger-children > * {
+  animation: fadeIn 0.4s ease forwards;
+  opacity: 0;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+
+/* hover lift */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(16, 24, 40, 0.122);
+}
+
+/* divider */
+.divider {
+  border-top: 1px solid rgba(20, 26, 34, 0.06);
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+/* glow bar for signal */
+.glow-bar {
+  box-shadow: 0 0 12px currentColor;
+}
+
+/* vignette overlay */
+.vignette {
+  position: relative;
+}
+
+.vignette::after {
+  display: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(16, 24, 40, 0.105) 100%);
+  pointer-events: none;
+}

@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decision Logic · NeuralTrade</title>
+    <link rel="shortcut icon" href="data:,">
+    <link
+      rel="stylesheet"
+      href="static/css/style.css"
+    />
+    
+  <style>.demo-strip{position:sticky;top:0;z-index:9999;padding:6px 12px;text-align:center;font:600 13px/1.4 system-ui,sans-serif;background:#fff4d6;color:#5c4400;border-bottom:1px solid #ecd9a0}.demo-strip a{color:#5c4400;text-decoration:underline}</style><script src="demo-data.js"></script><script src="demo-shim.js"></script></head>
+  <body><div class="demo-strip">Online demo with recorded data. AI reasoning and live news run in demo mode here (they need API keys). <a href="../">About this demo</a></div>
+    <div class="app-shell">
+      <!-- dark backdrop behind the menu on phones -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+      <!-- side menu: hidden at the left edge, slides out on hover -->
+      <aside class="sidebar" id="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">NeuralTrade</div>
+          <div class="sidebar-subtitle">Fuzzy logic trading desk</div>
+        </div>
+
+        <nav class="nav-items">
+          <a
+            href="index.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            Dashboard
+            <kbd>1</kbd>
+          </a>
+          <a
+            href="market-intelligence.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v9l5 3" />
+            </svg>
+            Market Intelligence
+            <kbd>2</kbd>
+          </a>
+          <a
+            href="decision-logic.html"
+            class="nav-item active"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M17.66 6.34l-1.41 1.41M6.34 17.66l-1.41 1.41"
+              />
+            </svg>
+            Decision Logic
+            <kbd>3</kbd>
+          </a>
+          <a
+            href="backtesting.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            Backtesting
+            <kbd>4</kbd>
+          </a>
+          <a
+            href="agentic.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
+              <circle cx="12" cy="12" r="7" stroke-dasharray="2 2"/>
+            </svg>
+            Agentic Layer
+            <kbd>5</kbd>
+          </a>
+          <a
+            href="walkthrough.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 12l9 5 9-5"/>
+              <path d="M3 17l9 5 9-5"/>
+            </svg>
+            Tutorial
+            <kbd>6</kbd>
+          </a>
+          <a
+            href="settings.html"
+            class="nav-item"
+          >
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.14 12.94a7 7 0 0 0 .07-.94 7 7 0 0 0-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.59-.22l-2.39.96a7 7 0 0 0-1.62-.94l-.36-2.54A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.41l-.36 2.54a7 7 0 0 0-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.63 8.47a.49.49 0 0 0 .12.64l2.03 1.58a7 7 0 0 0-.07.94c0 .32.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.64l1.92 3.32c.12.22.37.3.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.49.41h4c.25 0 .45-.17.49-.41l.36-2.54a7 7 0 0 0 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.64z"
+              />
+            </svg>
+            Settings
+            <kbd>7</kbd>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p class="sidebar-hint">Press 1–7 to switch pages.</p>
+          <button class="btn-execute" id="btn-execute-trade">
+            <svg
+              style="width: 15px; height: 15px; fill: currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Execute Trade
+          </button>
+        </div>
+      </aside>
+
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Open navigation" title="Menu">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <div class="topbar-logo">NeuralTrade<small>Decision Logic</small></div>
+            
+            <div class="topbar-status">
+              <span class="status-dot"></span>
+              Market data live
+            </div>
+            
+          </div>
+
+          
+<!-- Tab bar -->
+<div class="tab-bar" style="margin-left: auto">
+  
+  <button
+    onclick="switchTab(this)"
+    class="tab-bar__item tab-bar__item--active"
+  >
+    <span
+      style="width:6px;height:6px;border-radius:50%;background:var(--gold-soft);display:inline-block;"
+    ></span
+    > Fuzzification
+  </button>
+  
+  <button
+    onclick="switchTab(this)"
+    class="tab-bar__item"
+  >
+     Rule
+  Evaluation
+  </button>
+  
+  <button
+    onclick="switchTab(this)"
+    class="tab-bar__item"
+  >
+     Defuzzification
+  </button>
+  
+</div>
+
+        </header>
+
+        <div class="page-scroll">
+          <div class="page-layout">
+<div class="decision-grid">
+  <!-- left column: why the expert layer chose these inputs -->
+  <div class="glass-panel glass-panel--gold flex-col overflow-hidden" style="flex:1;overflow-y:auto;">
+    
+    <div class="panel-header">
+      <span class="label-xs" style="color:var(--gold-soft);">Expert Reasoning Panel</span>
+      <span class="badge badge--processing">Technical-Driven</span>
+    </div>
+
+    <!-- Market Regime -->
+    <div class="muted-box" style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span class="label-xs">Market Regime</span>
+        <span class="label-xs" style="color:var(--gold-soft);">86% confidence</span>
+      </div>
+      <div class="panel-title" style="font-size:13px;margin-bottom:4px;">
+        Technical-Driven
+      </div>
+      <div class="body-sm">Neutral sentiment environment. Human expert delegates to technical indicators (RSI, MACD) as primary signals. News sentiment is suppressed to avoid noise.</div>
+      <div class="label-xs" style="margin-top:6px;text-transform:none;color:var(--text-faint);">RULE_3_TECHNICAL_DRIVEN</div>
+    </div>
+
+    <!-- Feature Status -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div class="evidence-box evidence-box--buy" style="margin-bottom:0;">
+        <div class="label-xs" style="color:var(--semantic-buy);margin-bottom:4px;">Active Features</div>
+        <div class="label-sm" style="text-transform:none;color:var(--white-soft);">
+          rsi, macd_hist
+          
+        </div>
+      </div>
+      <div class="evidence-box evidence-box--sell" style="margin-bottom:0;">
+        <div class="label-xs" style="color:var(--semantic-sell);margin-bottom:4px;">Masked Features</div>
+        <div class="label-sm" style="text-transform:none;">
+          sentiment, atr
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature Weights -->
+    <div style="margin-bottom: 10px">
+      <div class="label-xs" style="margin-bottom:6px;">Feature Weight Distribution</div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span class="label-sm" style="text-transform:capitalize;min-width:70px;">sentiment</span>
+        <div class="progress-bar" style="flex: 1; height: 4px">
+          <div class="progress-bar__fill" style="width:0%;background:rgba(20, 26, 34, 0.15);"></div>
+        </div>
+        <span class="label-xs" style="text-transform:none;color:var(--text-faint);min-width:32px;text-align:right;">0%</span>
+      </div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span class="label-sm" style="text-transform:capitalize;min-width:70px;">rsi</span>
+        <div class="progress-bar" style="flex: 1; height: 4px">
+          <div class="progress-bar__fill" style="width:60%;background:var(--gold-soft);"></div>
+        </div>
+        <span class="label-xs" style="text-transform:none;color:var(--gold-soft);min-width:32px;text-align:right;">60%</span>
+      </div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span class="label-sm" style="text-transform:capitalize;min-width:70px;">macd_hist</span>
+        <div class="progress-bar" style="flex: 1; height: 4px">
+          <div class="progress-bar__fill" style="width:40%;background:var(--gold-soft);"></div>
+        </div>
+        <span class="label-xs" style="text-transform:none;color:var(--gold-soft);min-width:32px;text-align:right;">40%</span>
+      </div>
+      
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span class="label-sm" style="text-transform:capitalize;min-width:70px;">atr</span>
+        <div class="progress-bar" style="flex: 1; height: 4px">
+          <div class="progress-bar__fill" style="width:0%;background:rgba(20, 26, 34, 0.15);"></div>
+        </div>
+        <span class="label-xs" style="text-transform:none;color:var(--text-faint);min-width:32px;text-align:right;">0%</span>
+      </div>
+      
+    </div>
+
+    <!-- Output Tendency -->
+    <div class="evidence-box evidence-box--gold">
+      <span class="label-xs">Tendency: </span>
+      <span class="label-sm" style="text-transform:none;color:var(--gold-soft);font-weight:600;">Depends on RSI+MACD</span>
+    </div>
+
+    <!-- final fuzzy signal -->
+    <div class="muted-box" style="display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div class="label-xs" style="margin-bottom:3px;">Final FLC Signal</div>
+        <div class="data-value" style="font-size:13px;color:var(--semantic-sell);">
+          SELL
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div class="label-xs" style="margin-bottom:3px;">Score / confidence</div>
+        <div class="label-sm" style="text-transform:none;color:var(--gold-soft);font-weight:600;">
+          -0.843 &nbsp;/&nbsp; 28%
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- middle: membership chart, cognition stream, inputs -->
+  <div class="flex-col flex-col-gap-md" style="min-height: 0">
+    <div class="glass-panel flex-1 overflow-hidden">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title" style="font-size:14px;margin-bottom:3px;">
+            Membership Functions
+          </div>
+          <div class="label-xs" style="text-transform:none;">
+            RSI sets: oversold, neutral, overbought
+          </div>
+        </div>
+      </div>
+
+      <div class="dl-membership-chart">
+        <svg viewBox="0 0 300 170" style="width: 100%; height: 160px">
+          <line x1="0" y1="30" x2="300" y2="30" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1" />
+          <line x1="0" y1="80" x2="300" y2="80" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1" />
+          <line x1="0" y1="130" x2="300" y2="130" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1" />
+          <line x1="75" y1="0" x2="75" y2="155" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1" />
+          <line x1="150" y1="0" x2="150" y2="155" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1" />
+          <line x1="225" y1="0" x2="225" y2="155" stroke="rgba(20, 26, 34, 0.04)" stroke-width="1" />
+          <!-- oversold in green, it can mean a bounce up -->
+          <path d="M 10,130 L 60,28 L 110,130" fill="rgba(18, 164, 107, 0.06)" stroke="#12a46b" stroke-width="1.8" />
+          <!-- neutral -->
+          <path d="M 85,130 L 150,28 L 215,130" fill="rgba(20, 26, 34, 0.054)" stroke="#141a22" stroke-width="1.8" />
+          <!-- overbought in red -->
+          <path d="M 195,130 L 248,28 L 300,130" fill="rgba(229, 68, 59, 0.06)" stroke="#e5443b" stroke-width="1.8" />
+          <line x1="224" y1="28" x2="224" y2="138" stroke="rgba(20, 26, 34, 0.45)" stroke-width="1.5" stroke-dasharray="4,3" />
+          <circle cx="224" cy="88" r="4.5" fill="#141a22" opacity=".85" />
+          <rect x="175" y="58" width="80" height="34" rx="5" fill="rgba(255, 255, 255, 0.94)" stroke="rgba(20, 26, 34, 0.12)" />
+          <text x="215" y="72" text-anchor="middle" fill="#141a22" style="font:10px 'Roboto Mono'">μ(OVB)</text>
+          <text x="215" y="86" text-anchor="middle" fill="#141a22" style="font:11px 'Roboto Mono';font-weight:600">0.68</text>
+          <text x="30" y="150" text-anchor="middle" fill="rgba(20, 26, 34, 0.45)" style="font:10px 'Roboto Mono'">Oversold</text>
+          <text x="148" y="150" text-anchor="middle" fill="rgba(20, 26, 34, 0.45)" style="font:10px 'Roboto Mono'">Neutral</text>
+          <text x="248" y="150" text-anchor="middle" fill="#e5443b" style="font:10px 'Roboto Mono';font-weight:700">Overbought</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Cognition Stream -->
+    <div class="glass-panel glass-panel--inset">
+      <div class="panel-header" style="margin-bottom:10px;">
+        <span class="label-xs">COGNITION STREAM</span>
+      </div>
+      <div class="log-stream">
+        
+          
+          <div>
+            <span class="log-stream__time">[RULE]</span>
+            <span class="log-stream__alert">
+              Sell &rarr; 0.280
+            </span>
+          </div>
+          
+        
+        <div>
+          <span class="log-stream__time">[REGIME]</span>
+          <span class="log-stream__action">TECHNICAL_DRIVEN</span>
+        </div>
+        <div>
+          <span class="log-stream__time">[SCORE]</span>
+          <span class="log-stream__alert">
+            -0.843 &rarr; Sell
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- inputs -->
+    <div class="glass-panel flex-col" style="flex-shrink:0;">
+      <div class="section-header">
+        <span class="section-header__title">Inputs</span>
+      </div>
+
+      
+      
+      <div style="margin-bottom: 16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span class="label-xs" style="color:var(--text-muted);">
+            RSI</span
+          >
+          <span class="data-value" style="color:#141a22;">51.3</span
+          >
+        </div>
+        <div class="progress-bar" style="height: 4px">
+          <div
+            class="progress-bar__fill glow-bar"
+            style="width:51%;background:#141a22;color:#141a22;opacity:1;"
+          ></div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span class="label-xs" style="color:var(--text-muted);">
+            MACD histogram</span
+          >
+          <span class="data-value" style="color:#e5443b;">-3.817</span
+          >
+        </div>
+        <div class="progress-bar" style="height: 4px">
+          <div
+            class="progress-bar__fill glow-bar"
+            style="width:11%;background:#e5443b;color:#e5443b;opacity:1;"
+          ></div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span class="label-xs" style="color:var(--text-faint);">
+            Sentiment <span style="color:var(--semantic-sell);">MASKED</span></span
+          >
+          <span class="data-value" style="color:rgba(20, 26, 34, 0.18);">-0.08</span
+          >
+        </div>
+        <div class="progress-bar" style="height: 4px">
+          <div
+            class="progress-bar__fill"
+            style="width:45%;background:rgba(20, 26, 34, 0.18);color:rgba(20, 26, 34, 0.18);opacity:0.3;"
+          ></div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 16px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <span class="label-xs" style="color:var(--text-faint);">
+            ATR (volatility) <span style="color:var(--semantic-sell);">MASKED</span></span
+          >
+          <span class="data-value" style="color:rgba(20, 26, 34, 0.18);">4.02</span
+          >
+        </div>
+        <div class="progress-bar" style="height: 4px">
+          <div
+            class="progress-bar__fill"
+            style="width:40%;background:rgba(20, 26, 34, 0.18);color:rgba(20, 26, 34, 0.18);opacity:0.3;"
+          ></div>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+
+  <!-- right column: rules that fired and the final signal -->
+  <div class="flex-col flex-col-gap-md" style="min-height: 0">
+    <div class="glass-panel flex-1 overflow-y-auto">
+      <div class="panel-header">
+        <span class="label-xs">Rules fired</span>
+        <span class="badge badge--processing">1</span>
+      </div>
+
+      <div class="flex-col flex-col-gap-sm">
+        <!-- rules that fired -->
+        
+          
+          
+          <div class="rule-card rule-card--firing">
+            <div class="rule-card__header">
+              <span class="rule-card__id">Rule 01</span>
+              <span class="badge badge--processing">
+                Firing (0.28)
+              </span>
+            </div>
+            <div class="rule-card__body">
+              THEN <span style="color:var(--semantic-buy)">Signal</span> is
+              <strong style="color:var(--semantic-sell);">
+                Sell
+              </strong>
+              <span class="label-xs" style="text-transform:none;"> · strength 0.280</span>
+            </div>
+          </div>
+          
+          
+        
+      </div>
+    </div>
+
+    <!-- Aggregated Signal -->
+    
+    
+    <div class="glass-panel glass-panel--danger" style="padding: 16px 20px">
+      <div class="dl-signal-agg">
+        <div>
+          <div class="dl-conf-label">Signal</div>
+          <div class="dl-signal-name" style="color:var(--semantic-sell);">
+            Sell
+          </div>
+        </div>
+        <div style="text-align: right">
+          <div class="dl-conf-label">Confidence</div>
+          <div class="dl-signal-conf">28%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- execute button -->
+    <button id="dl-execute-trade" class="btn-execute" style="border-radius: var(--radius-lg)">
+      <svg style="width: 14px; height: 14px; fill: currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      Execute Trade
+    </button>
+  </div>
+</div>
+
+<script>
+  function switchTab(el) {
+    el.closest(".tab-bar")
+      .querySelectorAll(".tab-bar__item")
+      .forEach((b) => {
+        b.classList.remove("tab-bar__item--active");
+      });
+    el.classList.add("tab-bar__item--active");
+  }
+</script>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="static/js/main.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NeuralTrade</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f2f4f7;
+    --card: #ffffff;
+    --line: #e4e7ec;
+    --text: #141a22;
+    --muted: #5d6876;
+    --blue: #1557d0;
+    --buy: #12a46b;
+    --sell: #e5443b;
+    --warn: #d98a00;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font: 16px/1.6 Roboto, system-ui, sans-serif; color: var(--text); background: var(--bg); }
+  a { color: var(--blue); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header { background: var(--card); border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-weight: 700; font-size: 20px; color: var(--blue); }
+  .hero { padding: 56px 0 32px; }
+  .hero h1 { font-size: 40px; line-height: 1.15; max-width: 18ch; }
+  .hero p { margin-top: 14px; max-width: 62ch; color: var(--muted); font-size: 17px; }
+  .signals { display: flex; gap: 8px; margin-top: 20px; font: 500 13px "Roboto Mono", monospace; }
+  .signals span { padding: 3px 10px; border-radius: 4px; color: #fff; }
+  .actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 6px; font-weight: 700; text-decoration: none; }
+  .btn.primary { background: var(--blue); color: #fff; }
+  .btn.ghost { border: 1px solid var(--line); background: var(--card); color: var(--text); }
+  .shot { margin: 8px 0 40px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--card); }
+  .shot img { display: block; width: 100%; height: auto; }
+  section { padding: 8px 0 40px; }
+  h2 { font-size: 24px; margin-bottom: 14px; }
+  .note { color: var(--muted); max-width: 70ch; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; font-size: 15px; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: #f6f7f9; font-weight: 700; }
+  tr:last-child td { border-bottom: none; }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .tag.ok { background: #e3f5ec; color: var(--buy); }
+  .tag.rec { background: #e7eefb; color: var(--blue); }
+  .tag.key { background: #fff1db; color: #8a5a00; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid .shot { margin: 0; }
+  .grid figcaption { padding: 10px 14px; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); }
+  .steps { counter-reset: s; list-style: none; display: grid; gap: 10px; }
+  .steps li { counter-increment: s; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px 12px 52px; position: relative; }
+  .steps li::before { content: counter(s); position: absolute; left: 14px; top: 12px; width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+  footer { padding: 28px 0 40px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+  @media (max-width: 760px) { .hero h1 { font-size: 30px; } .grid { grid-template-columns: 1fr; } th:nth-child(3), td:nth-child(3) { display: none; } }
+</style>
+</head>
+<body>
+<header><div class="wrap"><span class="logo">NeuralTrade</span><a href="https://github.com/cheah20/NeuralTrade">GitHub</a></div></header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1>A fuzzy logic helper for Buy, Sell or Hold</h1>
+    <p>NeuralTrade reads a stock or crypto ticker, scores RSI, MACD, ATR and news sentiment with a Mamdani fuzzy engine, and explains how it reached its signal. An expert layer decides which inputs to trust in each kind of market, and an AI suggestion only counts after it passes a rule check.</p>
+    <div class="signals"><span style="background:var(--buy)">BUY</span><span style="background:var(--muted)">HOLD</span><span style="background:var(--sell)">SELL</span></div>
+    <div class="actions">
+      <a class="btn primary" href="demo/index.html">Open the live demo</a>
+      <a class="btn ghost" href="https://github.com/cheah20/NeuralTrade">View the code</a>
+    </div>
+  </div>
+
+  <figure class="shot"><img src="img/dashboard.png" alt="Dashboard with a TSLA price chart and a Strong Buy signal"/></figure>
+
+  <section>
+    <h2>What works in the online demo</h2>
+    <p class="note" style="margin-bottom:14px">The real app is a Python Flask server. This page cannot run Python, so the demo answers from data recorded from the real app. Nothing here uses a paid service.</p>
+    <table>
+      <thead><tr><th>Feature</th><th>Online demo</th><th>Full version (run locally)</th></tr></thead>
+      <tbody>
+        <tr><td>Price charts and indicators</td><td><span class="tag rec">Recorded</span> AAPL, TSLA, NVDA, MSFT, BTC, ETH</td><td>Any ticker, live from yfinance (free)</td></tr>
+        <tr><td>Fuzzy engine and expert layer</td><td><span class="tag rec">Recorded</span> results for the tickers above</td><td>Worked out live for every request</td></tr>
+        <tr><td>Backtesting</td><td><span class="tag rec">Recorded</span> 6 tickers, 1Y, 2Y and 3Y</td><td>Any ticker and period</td></tr>
+        <tr><td>Agentic layer and validation gate</td><td><span class="tag ok">Works</span> with the built in demo AI</td><td>Same, or real AI with a DeepSeek API key</td></tr>
+        <tr><td>AI reasoning (LLM)</td><td><span class="tag key">Demo mode</span> fixed example scenarios</td><td>Needs a DeepSeek API key (paid, not included)</td></tr>
+        <tr><td>Market news and brief</td><td><span class="tag key">Demo mode</span> sample headlines, rule based brief</td><td>Live news needs a Marketaux API key (free plan available)</td></tr>
+        <tr><td>Tutorial with typed values</td><td><span class="tag rec">Recorded</span> shows one saved run</td><td>Works out your own RSI, MACD, ATR and sentiment</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>How a decision is made</h2>
+    <ol class="steps">
+      <li>Prices come from yfinance and turn into RSI, MACD histogram and ATR. News gives a sentiment score.</li>
+      <li>A Mamdani fuzzy engine with 26 rules scores every input, then centroid defuzzification gives one signal.</li>
+      <li>The expert layer spots the market regime, such as calm or news driven, and masks or re-weights inputs.</li>
+      <li>The AI proposes a small change to the score. A gate of 16 expert rules approves, changes or rejects it.</li>
+      <li>Every run is logged, and backtesting compares the result with a plain fuzzy baseline and buy and hold.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>More screens</h2>
+    <div class="grid">
+      <figure class="shot"><img src="img/backtesting.png" alt="Backtest of NVDA over two years"/><figcaption>Backtesting against a baseline and buy and hold</figcaption></figure>
+      <figure class="shot"><img src="img/agentic.png" alt="Agentic decision flow for TSLA"/><figcaption>Agentic flow: AI proposal checked by the rule gate</figcaption></figure>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Undergraduate Fuzzy Logic course project, May to June 2026. The signals are for learning only and are not financial advice. © 2026 cheah20.</div></footer>
+</body>
+</html>
