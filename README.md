@@ -2,6 +2,7 @@
 
 **Fuzzy Logic Stock Trading Decision Support System**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Open-2ea44f?logo=githubpages&logoColor=white)](https://cheah20.github.io/NeuralTrade/)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.1-000000?logo=flask&logoColor=white)
 ![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white)
